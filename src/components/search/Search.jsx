@@ -3,10 +3,17 @@ import { useForm } from "react-hook-form";
 import { LiaSearchSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import { FaX } from "react-icons/fa6";
+import { toggleNav } from "../nav/navslice";
+import { selectIsNavOpen } from "../nav/navslice";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Search = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
+  const isNavOpen = useSelector(selectIsNavOpen);
   const onSubmit = (data) => {
     if (data.search === "") {
       navigate("/");
@@ -34,9 +41,15 @@ const Search = () => {
           </div>
         </form>
       </div>
-      <div className="lg:hidden md:hidden block flex items-center justify-center ml-2">
-        <FaBars />
-      </div>
+      <button
+        className="lg:hidden md:hidden block flex items-center justify-center ml-2"
+        onClick={() => {
+          dispatch(toggleNav());
+          console.log("toggled");
+        }}
+      >
+        {isNavOpen ? <FaX /> : <FaBars />}
+      </button>
     </div>
   );
 };

@@ -18,6 +18,7 @@ Briefly describe what this PR does and why it is needed.
 - [ ] API integration
 - [ ] Bug fix
 - [ ] Refactor
+- [ ] Test
 
 Describe the main changes:
 

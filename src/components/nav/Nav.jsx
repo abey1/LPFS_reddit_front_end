@@ -9,7 +9,7 @@ const Nav = () => {
           Reddit
         </Link>
       </h1>
-      <div className="flex items-center justify-center border  border-b-orange-700 w-full">
+      <div className="flex items-center justify-center w-full">
         <Search />
       </div>
     </div>

@@ -1,10 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { LiaSearchSolid } from "react-icons/lia";
-
+import { useNavigate } from "react-router-dom";
 const Search = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    if (data.search === "") {
+      navigate("/");
+      return;
+    }
+    navigate(`/search/${data.search}`);
+  };
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>

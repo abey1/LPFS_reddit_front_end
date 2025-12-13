@@ -171,7 +171,7 @@ Examples:
   - Subreddit name
   - Description
   - Icons/thumbnails (if available)
-- Clicking a subreddit navigate to `/t/{sub}`
+- Clicking a subreddit navigate to `/r/{sub}.json`
 
 #### API Used
 

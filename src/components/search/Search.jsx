@@ -19,10 +19,12 @@ const Search = () => {
           <label htmlFor="search">
             <LiaSearchSolid className="text-3xl" />
           </label>
+
           <input
             id="search"
             name="search"
             type="text"
+            placeholder="search reddit"
             className="border rounded-2xl px-3 py-2"
             {...register("search")}
           />

@@ -16,7 +16,7 @@ const Root = () => {
     <>
       <Nav />
       <div className="flex flex-1">
-        <main className="flex-1 p-4 overflow-y-auto  mt-20 lg:mr-60 md:mr-30 mr-0 border">
+        <main className="flex-1 p-4 overflow-y-auto  mt-20 lg:mr-60 md:mr-30 mr-0  overflow-visible">
           <Outlet />
         </main>
         <aside

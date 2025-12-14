@@ -15,7 +15,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Root />}>
       <Route index element={<Home />} />
       <Route path="subreddit/:subreddit_id" element={<SubredditPage />} />
-      <Route path="post/:post_id" element={<SinglePostPage />} />
+      <Route path="post/:sub/:post_id" element={<SinglePostPage />} />
       <Route path="search/:search_term" element={<SearchPage />} />
       <Route path="*" element={<Error_404 />} />
     </Route>

@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import navReducer from "./components/nav/navslice";
 import homeReducer from "./Pages/home_page/homePageSlice";
 
-const loggerMiddleware = (store) => (next) => (action) => {
+const loggerMiddleware = () => (next) => (action) => {
   // console.log("Before State:", store.getState());
   let result = next(action);
   // console.log("Next State:", store.getState());

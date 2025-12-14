@@ -1,9 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import BackButton from "../../components/back_button/BackButton";
 const SubredditPage = () => {
   const { subreddit_id } = useParams();
   return (
     <div>
+      <BackButton />
       <h1>{`Subreddit page: ${subreddit_id}`}</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a

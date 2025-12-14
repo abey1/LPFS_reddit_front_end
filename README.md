@@ -24,7 +24,7 @@
 | Prefix | Meaning     |
 | ------ | ----------- |
 | `t1`   | Comment     |
-| `t2`   | Post (link) |
+| `t3`   | Post (link) |
 | `t5`   | Subreddit   |
 | `t2`   | User        |
 

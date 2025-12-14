@@ -17,22 +17,28 @@ const prepareData = (rawPosts) => {
     author: rawPosts.data.author,
     upvotes: rawPosts.data.ups,
     timePosted: rawPosts.data.created_utc,
+    url_overridden_by_dest: rawPosts.data.url_overridden_by_dest,
   };
 };
 
 const homePageSlice = createSlice({
   name: "homePage",
   initialState: {
+    isLoading: false,
+    error: false,
     posts: [
       {
-        id: "1",
-        title: "Sample Post",
-        thumbnail: "https://via.placeholder.com/150",
-        subreddit_id: "t5_2qh33",
-        subredditName: "SampleSubreddit",
-        author: "SampleAuthor",
-        upvotes: 100,
-        timePosted: "2 hours ago",
+        author: "Any_Gap9612",
+        id: "t3_1pm0mds",
+        subredditName: "r/mildlyinfuriating",
+        subreddit_id: "t5_2ubgg",
+        thumbnail:
+          "https://b.thumbs.redditmedia.com/7WlhG6c6ed3Spc7pbZm8QXROZxyLLbXdEL_K0V8lbZA.jpg",
+        timePosted: 1765672551,
+        title:
+          "I got uninvited to a friend’s holiday potluck, while I was on my way to it.",
+        upvotes: 18393,
+        url_overridden_by_dest: "https://i.redd.it/cvd6ean0f27g1.jpeg",
       },
     ],
   },
@@ -44,14 +50,24 @@ const homePageSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.posts = action.payload.data.children.map(prepareData);
         console.log("Fetched posts:", state.posts);
+        state.isLoading = false;
+        state.error = false;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         console.error("Failed to fetch posts:", action.error);
+        state.error = true;
+        state.isLoading = false;
       })
-      .addCase(fetchPosts.pending, () => {
+      .addCase(fetchPosts.pending, (state) => {
         console.log("Fetching posts...");
+        state.isLoading = true;
+        state.error = false;
       });
   },
 });
+
+export const postSelector = (state) => state.homePage.posts;
+export const isLoadingSelector = (state) => state.homePage.isLoading;
+export const errorSelector = (state) => state.homePage.error;
 
 export default homePageSlice.reducer;

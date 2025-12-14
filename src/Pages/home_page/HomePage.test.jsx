@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { expect, afterEach } from "vitest";
+import { expect, afterEach, test } from "vitest";
 import { jest } from "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import * as reactRedux from "react-redux";

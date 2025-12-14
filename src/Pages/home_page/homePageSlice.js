@@ -54,4 +54,6 @@ const homePageSlice = createSlice({
   },
 });
 
+export const postSelector = (state) => state.homePage.posts;
+
 export default homePageSlice.reducer;

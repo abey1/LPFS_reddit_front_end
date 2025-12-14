@@ -5,9 +5,12 @@ import SideBarSubReddit from "../side_bar_subreddit/SideBarSubReddit.jsx";
 import { useSelector } from "react-redux";
 import { selectIsNavOpen } from "../nav/navslice.js";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { toggleNav } from "../nav/navslice.js";
 
 const Root = () => {
   const isNavOpen = useSelector(selectIsNavOpen);
+  const dispatch = useDispatch();
   useEffect(() => {
     console.log("isNavOpen changed:", isNavOpen);
   }, [isNavOpen]);
@@ -16,15 +19,21 @@ const Root = () => {
     <>
       <Nav />
       <div className="flex flex-1">
-        <main className="flex-1 p-4 overflow-y-auto  mt-20 lg:mr-60 md:mr-30 mr-0 border">
+        <main className="flex-1 p-4 overflow-y-auto  mt-20 lg:mr-60 md:mr-30 mr-0  overflow-visible">
           <Outlet />
         </main>
         <aside
-          className={`w-64 bg-gray-200 p-4 fixed  top-20 h-full lg:right-10 md:right-0 right-0 lg:block md:block ${
+          className={`w-full fixed  top-20 h-full lg:right-10 md:right-0 right-0 lg:block md:block ${
             isNavOpen ? "block" : "hidden"
           }`}
         >
-          <SideBarSubReddit />
+          <div className="z-100 w-70 mx-5 h-full bg-gray-200 right-0 fixed lg:right-10">
+            <SideBarSubReddit />
+          </div>
+          <div
+            className="w-full h-full border border-red-500"
+            onClick={() => dispatch(toggleNav())}
+          ></div>
         </aside>
       </div>
     </>

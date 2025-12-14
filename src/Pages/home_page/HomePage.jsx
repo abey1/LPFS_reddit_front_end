@@ -32,7 +32,7 @@ const HomePage = () => {
           </button>
         </div>
       ) : (
-        <div className="flex">
+        <div className="flex w-full justify-center">
           <div>
             {posts.map((post) => (
               <SinglePostMinimal key={post.id} post={post} />

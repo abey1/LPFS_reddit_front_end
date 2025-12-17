@@ -7,6 +7,7 @@ import { singlePostSelector } from "./singePostPageSlice.js";
 import { useSelector } from "react-redux";
 import { fetchSingleRedditPost } from "./singePostPageSlice.js";
 import SinglePostPageDetail from "../../components/single_post/SinglePostPageDetail.jsx";
+import Comments from "../../components/comments/Comments.jsx";
 
 const SinglePostPage = () => {
   const { sub, post_id } = useParams();
@@ -48,6 +49,7 @@ const SinglePostPage = () => {
     <div>
       <BackButton />
       <SinglePostPageDetail post={post} />
+      <Comments sub={sub} post_id={post_id} />
     </div>
   );
 };

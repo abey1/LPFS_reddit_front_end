@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import navReducer from "./components/nav/navslice";
 import homeReducer from "./Pages/home_page/homePageSlice";
 import singlePageReducer from "./Pages/single_post_page/singePostPageSlice";
+import commentsReducer from "./components/comments/commentsSlice";
 
 const loggerMiddleware = () => (next) => (action) => {
   console.log("Before State:", store.getState());
@@ -16,6 +17,7 @@ const store = configureStore({
     nav: navReducer,
     homePage: homeReducer,
     singlePost: singlePageReducer,
+    comments: commentsReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(loggerMiddleware);

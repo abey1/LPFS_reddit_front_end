@@ -2,6 +2,7 @@ import React from "react";
 import { timeAgo } from "../../utils/util.js";
 import RedditImage from "../reddit_image/RedditImage.jsx";
 import { useNavigate } from "react-router-dom";
+import Upvotes from "../upvotes/Upvotes.jsx";
 
 const SinglePostMinimal = (post) => {
   const navigate = useNavigate();
@@ -61,18 +62,9 @@ const SinglePostMinimal = (post) => {
         <div className="pl-5 pt-5">
           <RedditImage src={url_overridden_by_dest} alt={title} />
         </div>
-        {/* <ul>
-          <li>{id}</li>
-          <li>{title}</li>
-          <li>{thumbnail}</li>
-          <li>{subreddit_id}</li>
-          <li>{subredditName}</li>
-          <li>{author}</li>
-          <li>{upvotes}</li>
-          <li>{timePosted}</li>
-          <li>{url_overridden_by_dest}</li>
-          <li>{timeAgo(timePosted)}</li>
-        </ul> */}
+        <div className="p-5">
+          <Upvotes upvotes={upvotes} />
+        </div>
       </div>
     </div>
   );

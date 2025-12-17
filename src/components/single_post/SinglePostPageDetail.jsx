@@ -2,6 +2,7 @@ import React from "react";
 import { timeAgo } from "../../utils/util.js";
 import reddit_img from "../../../public/reddit.svg";
 import RedditImage from "../reddit_image/RedditImage.jsx";
+import Upvotes from "../upvotes/Upvotes.jsx";
 const SinglePostPageDetail = ({ post }) => {
   const {
     author,
@@ -51,6 +52,9 @@ const SinglePostPageDetail = ({ post }) => {
         </div>
         <div className="p-5">
           <p>{body}</p>
+        </div>
+        <div className="px-5 pb-5">
+          <Upvotes upvotes={upvotes} />
         </div>
       </div>
     </div>

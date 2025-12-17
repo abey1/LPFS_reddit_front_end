@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchPosts = createAsyncThunk("homePage/fetchPosts", async () => {
-  const response = await fetch("https://www.reddit.com/.json");
+  const response = await fetch("/reddit/.json");
   const data = await response.json();
   return data;
 });

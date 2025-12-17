@@ -1,10 +1,66 @@
 import React from "react";
-
+import { timeAgo } from "../../utils/util.js";
+import reddit_img from "../../../public/reddit.svg";
+import RedditImage from "../reddit_image/RedditImage.jsx";
 const SinglePostPageDetail = ({ post }) => {
+  const {
+    author,
+    body,
+    commentsCount,
+    createdAt,
+    image,
+    link,
+    subreddit,
+    title,
+    upvotes,
+    video,
+  } = post;
   console.log("SinglePostPageDetail post:", post);
   return (
-    <div>
-      <h2>{post.title}</h2>
+    <div className="p-2">
+      <div className="bg-white rounded-2xl shadow-md  hover:shadow-lg transition-shadow duration-300 w-full hover:cursor-pointer border">
+        <div className="flex items-center mb-4 gap-4 pl-5 pt-5">
+          <img
+            src={reddit_img}
+            alt="Post Thumbnail"
+            className="w-10 h-10 rounded-full border bg-white p-0.5 shadow-sm"
+          />
+          <div>
+            <div className="flex flex-wrap">
+              <span className="ml-2 font-semibold wrap-break-word inline-block shrink min-w-0">
+                {subreddit}
+              </span>{" "}
+              ·{""}
+              <span className="text-gray-500 ml-2 wrap-break-word inline-block shrink min-w-0">
+                {timeAgo(createdAt)}
+              </span>
+            </div>
+            <div className="flex flex-wrap items-center">
+              <span className="text-lg font-semibold shrink min-w-0">
+                {title}
+              </span>{" "}
+              ·{" "}
+              <span className="text-gray-500 wrap-break-word inline-block shrink min-w-0">
+                {author}{" "}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="pl-5 pt-5">
+          <RedditImage src={image} alt={title} />
+        </div>
+        <div className="p-5">
+          <p>{body}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SinglePostPageDetail;
+
+{
+  /* <h2>{post.title}</h2>
 
       <div>
         {post.subreddit_name_prefixed} · Posted by u/{post.author}
@@ -36,9 +92,5 @@ const SinglePostPageDetail = ({ post }) => {
         <a href={post.url} target="_blank" rel="noopener noreferrer">
           {post.url}
         </a>
-      )}
-    </div>
-  );
-};
-
-export default SinglePostPageDetail;
+      )} */
+}

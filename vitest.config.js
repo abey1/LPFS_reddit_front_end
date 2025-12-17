@@ -8,4 +8,13 @@ export default defineConfig({
     globals: true, // So you can use `test`, `expect` without importing
     setupFiles: "./src/setupTests.js", // Optional
   },
+  server: {
+    proxy: {
+      "/reddit": {
+        target: "https://www.reddit.com",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/reddit/, ""),
+      },
+    },
+  },
 });

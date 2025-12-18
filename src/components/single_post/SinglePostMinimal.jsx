@@ -1,22 +1,17 @@
 import React from "react";
 import { timeAgo } from "../../utils/util.js";
 import RedditImage from "../reddit_image/RedditImage.jsx";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Upvotes from "../upvotes/Upvotes.jsx";
+import { getProperSubId, getProperPostId } from "../../utils/util.js";
 
 const SinglePostMinimal = (post) => {
   const navigate = useNavigate();
-  const getProperSub = (sub) => {
-    return sub.replace(/^r\//, "");
-  };
-  const getPropId = (id) => {
-    return id.replace(/^t3_/, "");
-  };
+
   const {
     id,
     title,
     thumbnail,
-    subreddit_id,
     subredditName,
     author,
     upvotes,
@@ -24,7 +19,7 @@ const SinglePostMinimal = (post) => {
     url_overridden_by_dest,
   } = post.post;
   const handlePostClick = () => {
-    navigate(`/post/${getProperSub(subredditName)}/${getPropId(id)}`);
+    navigate(`/post/${getProperSubId(subredditName)}/${getProperPostId(id)}`);
   };
   return (
     <div className="p-2">
@@ -32,16 +27,21 @@ const SinglePostMinimal = (post) => {
         className="bg-white rounded-2xl shadow-md  hover:shadow-lg transition-shadow duration-300 w-full hover:cursor-pointer "
         onClick={handlePostClick}
       >
-        <div className="flex items-center mb-4 gap-4 pl-5 pt-5">
+        <div className="flex items-center mb-4 gap-4 pl-5 pt-5 mr-10">
           <img
             src={thumbnail}
             alt="Post Thumbnail"
-            className="w-10 h-10 rounded-full border bg-white p-0.5 shadow-sm"
+            className="w-10 h-10 rounded-full border border-gray-300 bg-white p-0.5 shadow-sm"
           />
           <div>
             <div className="flex flex-wrap">
               <span className="ml-2 font-semibold wrap-break-word inline-block shrink min-w-0">
-                {subredditName}
+                <Link
+                  to={`subreddit/${getProperSubId(subredditName)}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {subredditName}
+                </Link>
               </span>{" "}
               ·{""}
               <span className="text-gray-500 ml-2 wrap-break-word inline-block shrink min-w-0">
@@ -62,7 +62,7 @@ const SinglePostMinimal = (post) => {
         <div className="pl-5 pt-5">
           <RedditImage src={url_overridden_by_dest} alt={title} />
         </div>
-        <div className="p-5">
+        <div className="p-5 pl-15">
           <Upvotes upvotes={upvotes} />
         </div>
       </div>

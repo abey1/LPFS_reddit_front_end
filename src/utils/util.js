@@ -20,3 +20,10 @@ export const timeAgo = (utcSeconds) => {
 
   return "just now";
 };
+
+export const getProperSubId = (sub) => {
+  return sub.replace(/^r\//, "");
+};
+export const getProperPostId = (id) => {
+  return id.replace(/^t3_/, "");
+};

@@ -9,8 +9,9 @@ const RedditImage = ({ src, alt }) => {
       <div className="text-center">
         <p className="text-sm text-gray-500">Image failed to load</p>
         <button
-          className="text-blue-500 underline"
-          onClick={() => {
+          className="text-blue-500 underline focus:cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
             setError(false);
             setReloadKey((k) => k + 1);
           }}
@@ -29,7 +30,7 @@ const RedditImage = ({ src, alt }) => {
       loading="lazy"
       referrerPolicy="no-referrer"
       onError={() => setError(true)}
-      className="rounded object-cover"
+      className="rounded object-cover pr-15 pl-10"
     />
   );
 };

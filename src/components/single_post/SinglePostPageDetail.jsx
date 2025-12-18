@@ -1,6 +1,6 @@
 import React from "react";
 import { timeAgo } from "../../utils/util.js";
-import reddit_img from "../../../public/reddit.svg";
+import reddit_img from "../../utils/reddit.svg";
 import RedditImage from "../reddit_image/RedditImage.jsx";
 import Upvotes from "../upvotes/Upvotes.jsx";
 const SinglePostPageDetail = ({ post }) => {

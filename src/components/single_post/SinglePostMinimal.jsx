@@ -29,7 +29,7 @@ const SinglePostMinimal = (post) => {
   return (
     <div className="p-2">
       <div
-        className="bg-white rounded-2xl shadow-md  hover:shadow-lg transition-shadow duration-300 w-full hover:cursor-pointer border"
+        className="bg-white rounded-2xl shadow-md  hover:shadow-lg transition-shadow duration-300 w-full hover:cursor-pointer "
         onClick={handlePostClick}
       >
         <div className="flex items-center mb-4 gap-4 pl-5 pt-5">

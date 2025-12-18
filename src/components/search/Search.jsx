@@ -27,7 +27,7 @@ const Search = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex gap-3 justify-center items-center">
             <label htmlFor="search">
-              <LiaSearchSolid className="text-3xl" />
+              <LiaSearchSolid className="text-3xl text-red-500" />
             </label>
 
             <input
@@ -35,7 +35,7 @@ const Search = () => {
               name="search"
               type="text"
               placeholder="search reddit"
-              className="border rounded-2xl px-3 py-2 lg:w-140 md:w-100 sm:w-80 xm:w-60 w-40"
+              className="border border-gray-300 rounded-2xl px-3 py-2 lg:w-140 md:w-100 sm:w-80 xm:w-60 w-40 focus:outline-none focus:ring-2 focus:ring-[#F54A00]"
               {...register("search")}
             />
           </div>

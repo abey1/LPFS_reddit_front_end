@@ -41,23 +41,11 @@ const SideBarSubReddit = () => {
 
   return (
     <div className="w-full p-4 h-full border-gray-600 rounded-lg bg-gray-200 overflow-auto">
-      {subreddits.map((subreddit) => (
+      {subreddits.map((subreddit, index) => (
         <div key={subreddit.id} className="mb-4">
-          <SideBarSinglePopularReddit subreddit={subreddit} />
+          <SideBarSinglePopularReddit subreddit={subreddit} index={index} />
         </div>
       ))}
-      <SideBarSinglePopularReddit
-        subreddit={{
-          id: "2qs0k",
-          display_name_prefixed: "r/Home",
-          description:
-            "Everything home related: interior design, home improvement, architecture.\n\n**Related subreddits**\n--------------------------\n* [/r/InteriorDesign](http://www.reddit.com/r/interiordesign)\n* [/r/architecture](http://www.reddit.com/r/architecture)\n* [/r/houseporn](http://www.reddit.com/r/houseporn)\n* [/r/roomporn](http://www.reddit.com/r/roomporn)\n* [/r/designmyroom](http://www.reddit.com/r/designmyroom)",
-          community_icon: "",
-          icon_img: "",
-          header_img: null,
-          subscribers: 375491,
-        }}
-      />
     </div>
   );
 };

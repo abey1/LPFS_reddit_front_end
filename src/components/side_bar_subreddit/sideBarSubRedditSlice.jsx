@@ -16,8 +16,13 @@ const sideBarSubRedditSlice = createSlice({
     isLoading: false,
     error: null,
     subreddits: [],
+    selected: {},
   },
-  reducers: {},
+  reducers: {
+    setSelectedSubreddit(state, action) {
+      state.selected = state.subreddits[action.payload];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPopularSubreddits.pending, (state) => {
@@ -37,7 +42,10 @@ const sideBarSubRedditSlice = createSlice({
   },
 });
 
+export const { setSelectedSubreddit } = sideBarSubRedditSlice.actions;
 export const selectSubreddits = (state) => state.sideBarSubreddit.subreddits;
+export const selectSelectedSubreddit = (state) =>
+  state.sideBarSubreddit.selected;
 export const selectIsLoadingSubreddits = (state) =>
   state.sideBarSubreddit.isLoading;
 export const selectErrorSubreddits = (state) => state.sideBarSubreddit.error;

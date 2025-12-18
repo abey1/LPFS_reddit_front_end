@@ -4,6 +4,7 @@ import homeReducer from "./Pages/home_page/homePageSlice";
 import singlePageReducer from "./Pages/single_post_page/singePostPageSlice";
 import commentsReducer from "./components/comments/commentsSlice";
 import sideBarSubRedditReducer from "./components/side_bar_subreddit/sideBarSubRedditSlice";
+import subredditPageReducer from "./Pages/subreddit_page/subredditPageSlice";
 
 const loggerMiddleware = () => (next) => (action) => {
   console.log("Before State:", store.getState());
@@ -20,6 +21,7 @@ const store = configureStore({
     singlePost: singlePageReducer,
     comments: commentsReducer,
     sideBarSubreddit: sideBarSubRedditReducer,
+    subredditPage: subredditPageReducer,
   },
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(loggerMiddleware);

@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const SideBarSinglePopularReddit = ({ subreddit }) => {
+import { setSelectedSubreddit } from "./sideBarSubRedditSlice.jsx";
+import { useDispatch } from "react-redux";
+const SideBarSinglePopularReddit = ({ subreddit, index }) => {
+  const dispatch = useDispatch();
   const {
     id,
     display_name_prefixed,
@@ -18,7 +21,10 @@ const SideBarSinglePopularReddit = ({ subreddit }) => {
     null;
 
   return (
-    <Link to={`/subreddit/${id}`}>
+    <Link
+      to={`/subreddit/${id}`}
+      onClick={() => dispatch(setSelectedSubreddit(index))}
+    >
       <div className="bg-white rounded-2xl shadow-md hover:shadow-lg transition p-5 cursor-pointer">
         {/* Header */}
         <div className="flex items-center gap-4 mb-3">

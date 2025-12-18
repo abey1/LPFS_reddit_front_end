@@ -22,6 +22,7 @@ export const timeAgo = (utcSeconds) => {
 };
 
 export const getProperSubId = (sub) => {
+  if (!sub) return "";
   return sub.replace(/^r\//, "");
 };
 export const getProperPostId = (id) => {

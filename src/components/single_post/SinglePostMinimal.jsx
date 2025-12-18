@@ -4,6 +4,7 @@ import RedditImage from "../reddit_image/RedditImage.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import Upvotes from "../upvotes/Upvotes.jsx";
 import { getProperSubId, getProperPostId } from "../../utils/util.js";
+import PostMedia from "../post_media/PostMedia.jsx";
 
 const SinglePostMinimal = (post) => {
   const navigate = useNavigate();
@@ -71,7 +72,8 @@ const SinglePostMinimal = (post) => {
           </div>
         </div>
         <div className="pl-5 pt-5">
-          <RedditImage src={url_overridden_by_dest} alt={title} />
+          {/* <RedditImage src={url_overridden_by_dest} alt={title} /> */}
+          <PostMedia post={post.post} />
         </div>
         <div className="p-5 pl-15">
           <Upvotes upvotes={upvotes} />

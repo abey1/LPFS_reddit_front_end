@@ -8,17 +8,18 @@ export const fetchPosts = createAsyncThunk("homePage/fetchPosts", async () => {
 });
 
 const prepareData = (rawPosts) => {
-  return {
-    id: rawPosts.data.name,
-    title: rawPosts.data.title,
-    thumbnail: rawPosts.data.thumbnail,
-    subreddit_id: rawPosts.data.subreddit_id,
-    subredditName: rawPosts.data.subreddit_name_prefixed,
-    author: rawPosts.data.author,
-    upvotes: rawPosts.data.ups,
-    timePosted: rawPosts.data.created_utc,
-    url_overridden_by_dest: rawPosts.data.url_overridden_by_dest,
-  };
+  return rawPosts.data;
+  // return {
+  //   id: rawPosts.data.name,
+  //   title: rawPosts.data.title,
+  //   thumbnail: rawPosts.data.thumbnail,
+  //   subreddit_id: rawPosts.data.subreddit_id,
+  //   subredditName: rawPosts.data.subreddit_name_prefixed,
+  //   author: rawPosts.data.author,
+  //   upvotes: rawPosts.data.ups,
+  //   timePosted: rawPosts.data.created_utc,
+  //   url_overridden_by_dest: rawPosts.data.url_overridden_by_dest,
+  // };
 };
 
 const homePageSlice = createSlice({

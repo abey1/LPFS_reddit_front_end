@@ -16,7 +16,7 @@ const SinglePostMinimal = (post) => {
     subredditName,
     subreddit_name_prefixed,
     author,
-    upvotes,
+    ups,
     timePosted,
     url_overridden_by_dest,
   } = post.post;
@@ -71,12 +71,12 @@ const SinglePostMinimal = (post) => {
             </div>
           </div>
         </div>
-        <div className="pl-5 pt-5">
+        <div className="pl-5 pt-5 mr-5">
           {/* <RedditImage src={url_overridden_by_dest} alt={title} /> */}
           <PostMedia post={post.post} />
         </div>
         <div className="p-5 pl-15">
-          <Upvotes upvotes={upvotes} />
+          <Upvotes upvotes={ups} />
         </div>
       </div>
     </div>

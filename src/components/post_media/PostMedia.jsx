@@ -84,7 +84,7 @@ function PostMedia({ post }) {
         target="_blank"
         onClick={(e) => e.stopPropagation()}
         rel="noopener noreferrer"
-        className="block border rounded-md p-4 hover:bg-gray-50 transition"
+        className="block border rounded-md pl-4 pt-4 pb-4 hover:bg-gray-50 transition"
       >
         <div className="flex items-center gap-2 text-blue-600">
           <FaExternalLinkAlt size={16} />

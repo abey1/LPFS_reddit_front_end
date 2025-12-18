@@ -4,7 +4,7 @@ import BackButton from "../../components/back_button/BackButton";
 import SubredditHeader from "../../components/subreddit_header/SubredditHeader.jsx";
 import { subredditPageSelector } from "./subredditPageSlice.js";
 import { useSelector } from "react-redux";
-import TypicalRedditPost from "../../components/single_post/TypicalRedditPost.jsx";
+
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
 
 const SubredditPage = () => {
@@ -26,7 +26,6 @@ const SubredditPage = () => {
       <SubredditHeader props={subreddit_id} />
       <div className="overflow-auto">
         {postsToRender.map((post) => (
-          // <TypicalRedditPost key={post.id} post={post} />
           <SinglePostMinimal key={post.id} post={post} />
         ))}
       </div>

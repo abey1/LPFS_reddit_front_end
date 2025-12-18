@@ -23,11 +23,11 @@ const Root = () => {
           <Outlet />
         </main>
         <aside
-          className={` fixed border border-blue-500 lg:w-70 md:w-70 w-full  top-20 h-full lg:right-10 md:right-0 right-0 lg:block md:block ${
+          className={` fixed mt-0 lg:w-80 md:w-90 w-full  top-20 h-full lg:right-10 md:right-0 right-0 lg:block md:block ${
             isNavOpen ? "block" : "hidden"
           }`}
         >
-          <div className="z-100 w-70 mx-5 h-full bg-gray-200 right-0 fixed lg:right-10 border border-green-600">
+          <div className="z-100 w-90   h-full bg-gray-200 right-0 fixed lg:right-10 ">
             <SideBarSubReddit />
           </div>
           <div

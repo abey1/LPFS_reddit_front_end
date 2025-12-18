@@ -42,7 +42,7 @@ const subredditPageSlice = createSlice({
     loading: false,
     pending: false,
     error: null,
-    new: [],
+    newPosts: [],
     hot: [],
     top: [],
     sortBy: "hot",
@@ -76,7 +76,7 @@ const subredditPageSlice = createSlice({
       })
       .addCase(fetchSubredditDetailsNew.fulfilled, (state, action) => {
         state.loading = false;
-        state.new = action.payload.data.children.map((item) => item.data);
+        state.newPosts = action.payload.data.children.map((item) => item.data);
       })
       .addCase(fetchSubredditDetailsNew.rejected, (state, action) => {
         state.loading = false;

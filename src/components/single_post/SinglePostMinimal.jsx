@@ -13,13 +13,24 @@ const SinglePostMinimal = (post) => {
     title,
     thumbnail,
     subredditName,
+    subreddit_name_prefixed,
     author,
     upvotes,
     timePosted,
     url_overridden_by_dest,
   } = post.post;
+  console.log("SinglePostMinimal post:", post.post);
+  let subredditNameFinal = "";
+  if (subredditName) {
+    subredditNameFinal = subredditName;
+  }
+  if (subreddit_name_prefixed) {
+    subredditNameFinal = subreddit_name_prefixed;
+  }
   const handlePostClick = () => {
-    navigate(`/post/${getProperSubId(subredditName)}/${getProperPostId(id)}`);
+    navigate(
+      `/post/${getProperSubId(subredditNameFinal)}/${getProperPostId(id)}`
+    );
   };
   return (
     <div className="p-2">

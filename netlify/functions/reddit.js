@@ -6,6 +6,7 @@ export async function handler(event) {
     const response = await fetch(url, {
       headers: {
         "User-Agent": "netlify-proxy",
+        Accept: "application/json",
       },
     });
 

@@ -34,47 +34,51 @@ const SinglePostMinimal = (post) => {
     );
   };
   return (
-    <div className="p-2">
+    <div className="p-2 w-full">
       <div
-        className="bg-white rounded-2xl shadow-md  hover:shadow-lg transition-shadow duration-300 w-full hover:cursor-pointer "
+        className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300 w-full max-w-full overflow-hidden hover:cursor-pointer"
         onClick={handlePostClick}
       >
-        <div className="flex items-center mb-4 gap-4 pl-5 pt-5 mr-10">
+        <div className="flex items-start mb-4 gap-4 pl-5 pt-5 mr-5 min-w-0">
           <img
             src={thumbnail}
             alt="Post Thumbnail"
-            className="w-10 h-10 rounded-full border border-gray-300 bg-white p-0.5 shadow-sm"
+            className="w-10 h-10 rounded-full border border-gray-300 bg-white p-0.5 shadow-sm flex-shrink-0"
           />
-          <div>
-            <div className="flex flex-wrap">
-              <span className="ml-2 font-semibold wrap-break-word inline-block shrink min-w-0">
+
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center min-w-0">
+              <span className="ml-2 font-semibold break-words truncate max-w-full">
                 <Link
                   to={`subreddit/${getProperSubId(subredditName)}`}
                   onClick={(e) => e.stopPropagation()}
+                  className="block truncate"
                 >
                   {subredditName}
                 </Link>
-              </span>{" "}
-              ·{""}
-              <span className="text-gray-500 ml-2 wrap-break-word inline-block shrink min-w-0">
+              </span>
+              <span className="mx-2 text-gray-400">·</span>
+              <span className="text-gray-500 break-words truncate max-w-full">
                 {timeAgo(timePosted)}
               </span>
             </div>
-            <div className="flex flex-wrap items-center">
-              <span className="text-lg font-semibold shrink min-w-0">
+
+            <div className="flex flex-wrap items-center min-w-0">
+              <span className="text-lg font-semibold break-words line-clamp-2 max-w-full">
                 {title}
-              </span>{" "}
-              ·{" "}
-              <span className="text-gray-500 wrap-break-word inline-block shrink min-w-0">
-                {author}{" "}
+              </span>
+              <span className="mx-2 text-gray-400">·</span>
+              <span className="text-gray-500 break-words truncate max-w-full">
+                {author}
               </span>
             </div>
           </div>
         </div>
-        <div className="pl-5 pt-5 mr-5">
-          {/* <RedditImage src={url_overridden_by_dest} alt={title} /> */}
+
+        <div className="pl-5 pt-5 mr-5 max-w-full overflow-hidden">
           <PostMedia post={post.post} />
         </div>
+
         <div className="p-5 pl-15">
           <Upvotes upvotes={ups} />
         </div>

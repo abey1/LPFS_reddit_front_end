@@ -32,8 +32,8 @@ const HomePage = () => {
           </button>
         </div>
       ) : (
-        <div className="flex w-full justify-center">
-          <div>
+        <div className="flex w-full items-start justify-start ">
+          <div className=" w-full md:w-4/5 ">
             {posts.map((post) => (
               <SinglePostMinimal key={post.id} post={post} />
             ))}

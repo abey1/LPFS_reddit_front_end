@@ -48,8 +48,10 @@ const SinglePostPage = () => {
   return (
     <div>
       <BackButton />
-      <SinglePostPageDetail post={post} />
-      <Comments sub={sub} post_id={post_id} />
+      <div className=" w-full md:w-4/5 ">
+        <SinglePostPageDetail post={post} />
+        <Comments sub={sub} post_id={post_id} />
+      </div>
     </div>
   );
 };

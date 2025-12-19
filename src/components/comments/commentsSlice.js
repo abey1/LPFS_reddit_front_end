@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
 
 export const fetchComments = createAsyncThunk(
   "comments/fetchComments",
   async ({ sub, post_id }) => {
-    const url = `/reddit/r/${sub}/comments/${post_id}.json`;
+    // const url = `/reddit/r/${sub}/comments/${post_id}.json`;
+    const url = `${REDDIT_BASE_URL}/r/${sub}/comments/${post_id}.json`;
     const response = await fetch(url);
     if (!response.ok) throw new Error("Network error");
     const data = await response.json();

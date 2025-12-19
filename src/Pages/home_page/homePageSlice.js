@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
 
 export const fetchPosts = createAsyncThunk("homePage/fetchPosts", async () => {
-  const response = await fetch("/reddit/.json");
+  // const response = await fetch("/reddit/.json");
+  const response = await fetch(`${REDDIT_BASE_URL}/.json`);
   const data = await response.json();
   return data;
 });

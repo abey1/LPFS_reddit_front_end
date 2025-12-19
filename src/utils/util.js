@@ -26,5 +26,6 @@ export const getProperSubId = (sub) => {
   return sub.replace(/^r\//, "");
 };
 export const getProperPostId = (id) => {
+  if (!id) return "";
   return id.replace(/^t3_/, "");
 };

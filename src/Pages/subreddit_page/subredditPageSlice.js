@@ -39,7 +39,6 @@ const sortByOptions = ["hot", "new", "top"];
 const subredditPageSlice = createSlice({
   name: "subredditPage",
   initialState: {
-    loading: false,
     pending: false,
     error: null,
     newPosts: [],
@@ -57,42 +56,41 @@ const subredditPageSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchSubredditDetailsHot.pending, (state) => {
-        state.loading = true;
         state.error = null;
         state.pending = true;
       })
       .addCase(fetchSubredditDetailsHot.fulfilled, (state, action) => {
-        state.loading = false;
+        state.pending = false;
         state.hot = action.payload.data.children.map((item) => item.data);
       })
       .addCase(fetchSubredditDetailsHot.rejected, (state, action) => {
-        state.loading = false;
+        state.pending = false;
         state.error = action.error.message;
       })
       .addCase(fetchSubredditDetailsNew.pending, (state) => {
-        state.loading = true;
+        state.pending = true;
         state.error = null;
         state.pending = true;
       })
       .addCase(fetchSubredditDetailsNew.fulfilled, (state, action) => {
-        state.loading = false;
+        state.pending = false;
         state.newPosts = action.payload.data.children.map((item) => item.data);
       })
       .addCase(fetchSubredditDetailsNew.rejected, (state, action) => {
-        state.loading = false;
+        state.pending = false;
         state.error = action.error.message;
       })
       .addCase(fetchSubredditDetailsTop.pending, (state) => {
-        state.loading = true;
+        state.pending = true;
         state.error = null;
         state.pending = true;
       })
       .addCase(fetchSubredditDetailsTop.fulfilled, (state, action) => {
-        state.loading = false;
+        state.pending = false;
         state.top = action.payload.data.children.map((item) => item.data);
       })
       .addCase(fetchSubredditDetailsTop.rejected, (state, action) => {
-        state.loading = false;
+        state.pending = false;
         state.error = action.error.message;
       });
   },

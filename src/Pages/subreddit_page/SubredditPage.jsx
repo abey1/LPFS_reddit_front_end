@@ -9,7 +9,7 @@ import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.js
 
 const SubredditPage = () => {
   const subredditPageState = useSelector(subredditPageSelector);
-  const { sortBy, newPosts, top, hot } = subredditPageState;
+  const { sortBy, newPosts, top, hot, pending, error } = subredditPageState;
   let postsToRender = [];
   if (sortBy === "new") {
     postsToRender = newPosts;
@@ -22,13 +22,21 @@ const SubredditPage = () => {
   return (
     <div className="">
       <BackButton />
-
-      <SubredditHeader props={subreddit_id} />
-      <div className="overflow-auto">
-        {postsToRender.map((post) => (
-          <SinglePostMinimal key={post.id} post={post} />
-        ))}
+      <div className=" w-full md:w-4/5 ">
+        <SubredditHeader props={subreddit_id} />
       </div>
+
+      {pending ? (
+        <p>Loading posts...</p>
+      ) : error ? (
+        <p>Error: {error}</p>
+      ) : (
+        <div className=" w-full md:w-4/5 ">
+          {postsToRender.map((post) => (
+            <SinglePostMinimal key={post.id} post={post} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
 
 export const fetchPopularSubreddits = createAsyncThunk(
   "sideBarSubreddit/fetchPopularSubreddits",
   async () => {
-    const response = await fetch("/reddit/subreddits/popular.json");
+    // const response = await fetch("/reddit/subreddits/popular.json");
+    const response = await fetch(`${REDDIT_BASE_URL}/subreddits/popular.json`);
     const data = await response.json();
     return data;
   }

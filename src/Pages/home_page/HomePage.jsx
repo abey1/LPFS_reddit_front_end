@@ -41,8 +41,10 @@ const HomePage = () => {
             {posts.map((post) => (
               <SinglePostMinimal key={post.id} post={post} />
             ))}
+            <LoadMore
+              prop={{ url: `${REDDIT_BASE_URL}/.json?after=${next}` }}
+            />
           </div>
-          <LoadMore prop={{ url: `${REDDIT_BASE_URL}/.json?after=${next}` }} />
         </div>
       )}
     </>

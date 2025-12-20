@@ -5,7 +5,9 @@ import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
 export const fetchMorePosts = createAsyncThunk(
   "loadMore/fetchMorePosts",
   async (next) => {
-    const response = await fetch(`${REDDIT_BASE_URL}/.json?after=${next}`);
+    const response = await fetch(
+      `${REDDIT_BASE_URL}/.json?after=${next}&limit=25`
+    );
     if (!response.ok) throw new Error("Network error");
     const data = await response.json();
     return data;
@@ -18,6 +20,7 @@ const loadMoreSlice = createSlice({
     isLoading: false,
     error: null,
     homeData: [],
+    totalData: {},
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -32,6 +35,7 @@ const loadMoreSlice = createSlice({
           ...state.homeData,
           ...action.payload.data.children.map((item) => item.data),
         ];
+        state.totalData = action.payload.data;
       })
       .addCase(fetchMorePosts.rejected, (state, action) => {
         state.isLoading = false;
@@ -44,3 +48,4 @@ export default loadMoreSlice.reducer;
 export const loadMoreDataSelector = (state) => state.loadMore.data;
 export const isLoadingMoreSelector = (state) => state.loadMore.isLoading;
 export const homeDataSelector = (state) => state.loadMore.homeData;
+export const totalDataSelector = (state) => state.loadMore.totalData;

@@ -7,6 +7,8 @@ import { isLoadingSelector, errorSelector } from "./homePageSlice.js";
 import { nextSelector } from "./homePageSlice";
 import LoadMore from "../../components/load_more/LoadMore.jsx";
 import { REDDIT_BASE_URL } from "../../api/redditBaseUrl.js";
+import { homeDataSelector } from "../../components/load_more/loadMoreSlice.js";
+import { addMorePosts } from "./homePageSlice.js";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -14,12 +16,18 @@ const HomePage = () => {
   const isLoading = useSelector(isLoadingSelector);
   const error = useSelector(errorSelector);
   const next = useSelector(nextSelector);
+  const homeData = useSelector(homeDataSelector);
 
   console.log("Posts in HomePage:", posts);
 
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);
+
+  useEffect(() => {
+    console.log("Home data from LoadMore slice:", homeData);
+    dispatch(addMorePosts(homeData));
+  }, [homeData]);
 
   return (
     <>
@@ -41,9 +49,7 @@ const HomePage = () => {
             {posts.map((post) => (
               <SinglePostMinimal key={post.id} post={post} />
             ))}
-            <LoadMore
-              prop={{ url: `${REDDIT_BASE_URL}/.json?after=${next}` }}
-            />
+            <LoadMore prop={{ next: `${next}` }} />
           </div>
         </div>
       )}

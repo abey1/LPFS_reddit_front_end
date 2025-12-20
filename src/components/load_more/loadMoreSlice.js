@@ -4,8 +4,8 @@ import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
 
 export const fetchMorePosts = createAsyncThunk(
   "loadMore/fetchMorePosts",
-  async (url) => {
-    const response = await fetch(`${REDDIT_BASE_URL}${url}`);
+  async (next) => {
+    const response = await fetch(`${REDDIT_BASE_URL}/.json?after=${next}`);
     if (!response.ok) throw new Error("Network error");
     const data = await response.json();
     return data;
@@ -43,3 +43,4 @@ const loadMoreSlice = createSlice({
 export default loadMoreSlice.reducer;
 export const loadMoreDataSelector = (state) => state.loadMore.data;
 export const isLoadingMoreSelector = (state) => state.loadMore.isLoading;
+export const homeDataSelector = (state) => state.loadMore.homeData;

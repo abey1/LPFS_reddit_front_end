@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { act } from "react";
 
 export const fetchPosts = createAsyncThunk("homePage/fetchPosts", async () => {
   const response = await fetch("/reddit/.json");
@@ -46,6 +47,9 @@ const homePageSlice = createSlice({
   },
   reducers: {
     // Define your synchronous reducers here if needed
+    addMorePosts: (state, action) => {
+      state.posts = [...state.posts, ...action.payload];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -73,5 +77,6 @@ export const postSelector = (state) => state.homePage.posts;
 export const isLoadingSelector = (state) => state.homePage.isLoading;
 export const errorSelector = (state) => state.homePage.error;
 export const nextSelector = (state) => state.homePage.next;
+export const { addMorePosts } = homePageSlice.actions;
 
 export default homePageSlice.reducer;

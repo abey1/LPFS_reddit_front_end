@@ -2,16 +2,21 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMorePosts } from "./loadMoreSlice.js";
 import { isLoadingMoreSelector } from "./loadMoreSlice.js";
+import { homeDataSelector } from "./loadMoreSlice.js";
+import { REDDIT_BASE_URL } from "../../api/redditBaseUrl.js";
 
 const LoadMore = ({ prop }) => {
-  const { url } = prop;
-  console.log("LoadMore component received url:", url);
+  const { next } = prop;
+  console.log("LoadMore component received url:", next);
   const dispatch = useDispatch();
+  const homeData = useSelector(homeDataSelector);
+  console.log("Home data in LoadMore component:", homeData);
+  console.log(`${REDDIT_BASE_URL}/.json?after=${next}`);
   const isLoadingMore = useSelector(isLoadingMoreSelector);
 
   const handleLoadMore = () => {
     console.log("Load More button clicked. Dispatching fetchMorePosts...");
-    dispatch(fetchMorePosts(url));
+    dispatch(fetchMorePosts(next));
   };
 
   if (isLoadingMore) {

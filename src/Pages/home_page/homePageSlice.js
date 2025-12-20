@@ -27,6 +27,7 @@ const homePageSlice = createSlice({
   initialState: {
     isLoading: false,
     error: false,
+    next: null,
     posts: [
       {
         author: "Any_Gap9612",
@@ -50,6 +51,7 @@ const homePageSlice = createSlice({
     builder
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.posts = action.payload.data.children.map(prepareData);
+        state.next = action.payload.data.after;
         console.log("Fetched posts:", state.posts);
         state.isLoading = false;
         state.error = false;
@@ -70,5 +72,6 @@ const homePageSlice = createSlice({
 export const postSelector = (state) => state.homePage.posts;
 export const isLoadingSelector = (state) => state.homePage.isLoading;
 export const errorSelector = (state) => state.homePage.error;
+export const nextSelector = (state) => state.homePage.next;
 
 export default homePageSlice.reducer;

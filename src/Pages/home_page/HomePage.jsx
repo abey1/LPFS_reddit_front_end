@@ -4,12 +4,16 @@ import { fetchPosts } from "./homePageSlice";
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
 import { postSelector } from "./homePageSlice";
 import { isLoadingSelector, errorSelector } from "./homePageSlice.js";
+import { nextSelector } from "./homePageSlice";
+import LoadMore from "../../components/load_more/LoadMore.jsx";
+import { REDDIT_BASE_URL } from "../../api/redditBaseUrl.js";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const posts = useSelector(postSelector);
   const isLoading = useSelector(isLoadingSelector);
   const error = useSelector(errorSelector);
+  const next = useSelector(nextSelector);
 
   console.log("Posts in HomePage:", posts);
 
@@ -38,6 +42,7 @@ const HomePage = () => {
               <SinglePostMinimal key={post.id} post={post} />
             ))}
           </div>
+          <LoadMore prop={{ url: `${REDDIT_BASE_URL}/.json?after=${next}` }} />
         </div>
       )}
     </>

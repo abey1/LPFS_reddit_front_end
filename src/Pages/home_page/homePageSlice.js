@@ -29,6 +29,8 @@ const homePageSlice = createSlice({
     isLoading: false,
     error: false,
     next: null,
+    before: null,
+    beforeOriginal: null,
     posts: [
       {
         author: "Any_Gap9612",
@@ -49,12 +51,17 @@ const homePageSlice = createSlice({
     // Define your synchronous reducers here if needed
     addMorePosts: (state, action) => {
       state.posts = [...state.posts, ...action.payload];
+      if (state.posts.length > 50) {
+        state.posts.splice(0, 25);
+      }
+      state.before = state.posts[0]?.name || null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.posts = action.payload.data.children.map(prepareData);
+        state.beforeOriginal = state.posts[0]?.name || null;
         state.next = action.payload.data.after;
         console.log("Fetched posts:", state.posts);
         state.isLoading = false;
@@ -77,6 +84,8 @@ export const postSelector = (state) => state.homePage.posts;
 export const isLoadingSelector = (state) => state.homePage.isLoading;
 export const errorSelector = (state) => state.homePage.error;
 export const nextSelector = (state) => state.homePage.next;
+export const beforeSelector = (state) => state.homePage.before;
+export const beforeOriginalSelector = (state) => state.homePage.beforeOriginal;
 export const { addMorePosts } = homePageSlice.actions;
 
 export default homePageSlice.reducer;

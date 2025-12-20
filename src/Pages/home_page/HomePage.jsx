@@ -9,6 +9,8 @@ import LoadMore from "../../components/load_more/LoadMore.jsx";
 import { REDDIT_BASE_URL } from "../../api/redditBaseUrl.js";
 import { homeDataSelector } from "../../components/load_more/loadMoreSlice.js";
 import { addMorePosts } from "./homePageSlice.js";
+import { beforeSelector } from "./homePageSlice.js";
+import { beforeOriginalSelector } from "./homePageSlice.js";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,10 @@ const HomePage = () => {
   const error = useSelector(errorSelector);
   const next = useSelector(nextSelector);
   const homeData = useSelector(homeDataSelector);
+  const before = useSelector(beforeSelector);
+  const beforeOriginal = useSelector(beforeOriginalSelector);
+
+  console.log("before original:", beforeOriginal);
 
   console.log("Posts in HomePage:", posts);
 
@@ -46,10 +52,19 @@ const HomePage = () => {
       ) : (
         <div className="flex w-full items-start justify-start ">
           <div className=" w-full md:w-4/5 ">
+            {before !== null &&
+            beforeOriginal !== null &&
+            before !== beforeOriginal ? (
+              <LoadMore
+                prop={{ next: `${before}`, getNext: false, getBefore: true }}
+              />
+            ) : null}
             {posts.map((post) => (
               <SinglePostMinimal key={post.id} post={post} />
             ))}
-            <LoadMore prop={{ next: `${next}` }} />
+            <LoadMore
+              prop={{ next: `${next}`, getNext: true, getBefore: false }}
+            />
           </div>
         </div>
       )}

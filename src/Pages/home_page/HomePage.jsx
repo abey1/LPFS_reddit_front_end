@@ -7,7 +7,10 @@ import { isLoadingSelector, errorSelector } from "./homePageSlice.js";
 import { nextSelector } from "./homePageSlice";
 import LoadMore from "../../components/load_more/LoadMore.jsx";
 import { REDDIT_BASE_URL } from "../../api/redditBaseUrl.js";
-import { homeDataNextSelector } from "../../components/load_more/loadMoreSlice.js";
+import {
+  homeDataNextSelector,
+  homeDataBeforeSelector,
+} from "../../components/load_more/loadMoreSlice.js";
 import { addMorePosts } from "./homePageSlice.js";
 import { beforeSelector } from "./homePageSlice.js";
 import { beforeOriginalSelector } from "./homePageSlice.js";
@@ -19,9 +22,11 @@ const HomePage = () => {
   const error = useSelector(errorSelector);
   const next = useSelector(nextSelector);
   const homeDataNext = useSelector(homeDataNextSelector);
+  const homeDataBefore = useSelector(homeDataBeforeSelector);
   const before = useSelector(beforeSelector);
   const beforeOriginal = useSelector(beforeOriginalSelector);
 
+  console.log("before:", before);
   console.log("before original:", beforeOriginal);
 
   console.log("Posts in HomePage:", posts);
@@ -32,8 +37,19 @@ const HomePage = () => {
 
   useEffect(() => {
     console.log("Home data from LoadMore slice:", homeDataNext);
-    dispatch(addMorePosts(homeDataNext));
+    dispatch(
+      addMorePosts({ data: homeDataNext, isAfter: true, isBefore: false })
+    );
   }, [homeDataNext]);
+
+  useEffect(() => {
+    console.log("Home data from LoadMore slice:", homeDataBefore);
+    dispatch(
+      addMorePosts({ data: homeDataBefore, isAfter: false, isBefore: true })
+    );
+  }, [homeDataBefore]);
+
+  useEffect(() => {}, [before]);
 
   return (
     <>

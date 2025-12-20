@@ -10,17 +10,6 @@ export const fetchPosts = createAsyncThunk("homePage/fetchPosts", async () => {
 
 const prepareData = (rawPosts) => {
   return rawPosts.data;
-  // return {
-  //   id: rawPosts.data.name,
-  //   title: rawPosts.data.title,
-  //   thumbnail: rawPosts.data.thumbnail,
-  //   subreddit_id: rawPosts.data.subreddit_id,
-  //   subredditName: rawPosts.data.subreddit_name_prefixed,
-  //   author: rawPosts.data.author,
-  //   upvotes: rawPosts.data.ups,
-  //   timePosted: rawPosts.data.created_utc,
-  //   url_overridden_by_dest: rawPosts.data.url_overridden_by_dest,
-  // };
 };
 
 const homePageSlice = createSlice({
@@ -50,11 +39,22 @@ const homePageSlice = createSlice({
   reducers: {
     // Define your synchronous reducers here if needed
     addMorePosts: (state, action) => {
-      state.posts = [...state.posts, ...action.payload];
-      if (state.posts.length > 50) {
-        state.posts.splice(0, 25);
+      const { data, isAfter, isBefore } = action.payload;
+      if (isAfter) {
+        state.posts = [...state.posts, ...data];
+        if (state.posts.length > 50) {
+          state.posts.splice(0, 25);
+          state.before = state.posts[0]?.name || null;
+        }
       }
-      state.before = state.posts[0]?.name || null;
+      if (isBefore) {
+        state.posts = [...data, ...state.posts];
+        if (state.posts.length > 50) {
+          state.posts.splice(state.posts.length - 25, state.posts.length);
+          state.next = state.posts[state.posts.length - 1]?.name || null;
+          state.before = state.posts[0]?.name || null;
+        }
+      }
     },
   },
   extraReducers: (builder) => {

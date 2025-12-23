@@ -7,7 +7,7 @@ const Upvotes = ({ upvotes }) => {
     <div>
       <div className="flex items-center gap-2">
         <PiArrowFatUpThin />
-        {upvotes}
+        {upvotes?.toLocaleString()}
         <PiArrowFatDownThin />
       </div>
     </div>

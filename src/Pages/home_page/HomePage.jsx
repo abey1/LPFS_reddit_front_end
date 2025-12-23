@@ -5,6 +5,7 @@ import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.js
 import { postSelector } from "./homePageSlice";
 import { isLoadingSelector, errorSelector } from "./homePageSlice.js";
 import { nextSelector } from "./homePageSlice";
+import { errorLoadMoreSelector } from "./homePageSlice";
 
 import { REDDIT_BASE_URL } from "../../api/redditBaseUrl.js";
 
@@ -24,7 +25,7 @@ const HomePage = () => {
   const isLoading = useSelector(isLoadingSelector);
   const error = useSelector(errorSelector);
   const next = useSelector(nextSelector);
-
+  const errorLoadMore = useSelector(errorLoadMoreSelector);
   const before = useSelector(beforeSelector);
   const beforeOriginal = useSelector(beforeOriginalSelector);
   const beforeCount = useSelector(beforeCountSelector);
@@ -97,9 +98,8 @@ const HomePage = () => {
                 prop={{
                   loadMorePosts: () =>
                     fetchMorePostsNext(posts[posts.length - 1]?.name || null),
-                  setBeforeCount: () => setBeforeCount(1),
                   trimList: () => trimList(),
-                  isNext: true,
+                  error: errorLoadMore,
                 }}
               />
             )}

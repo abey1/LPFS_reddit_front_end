@@ -47,6 +47,7 @@ const homePageSlice = createSlice({
     isLoading: false,
     isLoadingMorePosts: false,
     error: false,
+    errorLoadMore: null,
     beforeCount: -1,
     next: null,
     before: null,
@@ -97,6 +98,7 @@ const homePageSlice = createSlice({
         state.next = action.payload.data.after;
         console.log("Fetched posts:", state.posts);
         state.isLoading = false;
+        state.errorLoadMore = null;
         state.error = false;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
@@ -111,7 +113,7 @@ const homePageSlice = createSlice({
       })
       .addCase(fetchMorePostsNext.pending, (state) => {
         state.isLoadingMorePosts = true;
-        state.error = null;
+        state.errorLoadMore = null;
       })
       .addCase(fetchMorePostsNext.fulfilled, (state, action) => {
         state.isLoadingMorePosts = false;
@@ -120,14 +122,15 @@ const homePageSlice = createSlice({
           ...action.payload.data.children.map((item) => item.data),
         ];
         state.totalData = action.payload.data;
+        state.errorLoadMore = null;
       })
       .addCase(fetchMorePostsNext.rejected, (state, action) => {
         state.isLoadingMorePosts = false;
-        state.error = action.error.message;
+        state.errorLoadMore = action.error.message;
       })
       .addCase(fetchMorePostsBefore.pending, (state) => {
         state.isLoadingMorePosts = true;
-        state.error = null;
+        state.errorLoadMore = null;
       })
       .addCase(fetchMorePostsBefore.fulfilled, (state, action) => {
         state.isLoadingMorePosts = false;
@@ -136,10 +139,11 @@ const homePageSlice = createSlice({
           ...state.posts,
         ];
         state.totalData = action.payload.data;
+        state.errorLoadMore = null;
       })
       .addCase(fetchMorePostsBefore.rejected, (state, action) => {
         state.isLoadingMorePosts = false;
-        state.error = action.error.message;
+        state.errorLoadMore = action.error.message;
       });
   },
 });
@@ -153,6 +157,7 @@ export const beforeOriginalSelector = (state) => state.homePage.beforeOriginal;
 export const beforeCountSelector = (state) => state.homePage.beforeCount;
 export const isLoadingMorePostsSelector = (state) =>
   state.homePage.isLoadingMorePosts;
+export const errorLoadMoreSelector = (state) => state.homePage.errorLoadMore;
 export const { setBeforeCount, trimList } = homePageSlice.actions;
 
 export default homePageSlice.reducer;

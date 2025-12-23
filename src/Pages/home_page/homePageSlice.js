@@ -11,49 +11,95 @@ export const fetchPosts = createAsyncThunk("homePage/fetchPosts", async () => {
 
 const prepareData = (rawPosts) => {
   return rawPosts.data;
-  // return {
-  //   id: rawPosts.data.name,
-  //   title: rawPosts.data.title,
-  //   thumbnail: rawPosts.data.thumbnail,
-  //   subreddit_id: rawPosts.data.subreddit_id,
-  //   subredditName: rawPosts.data.subreddit_name_prefixed,
-  //   author: rawPosts.data.author,
-  //   upvotes: rawPosts.data.ups,
-  //   timePosted: rawPosts.data.created_utc,
-  //   url_overridden_by_dest: rawPosts.data.url_overridden_by_dest,
-  // };
 };
+
+export const fetchMorePostsNext = createAsyncThunk(
+  "homePage/fetchMorePostsNext",
+  async (next) => {
+    if (!next) return;
+    const response = await fetch(
+      `${REDDIT_BASE_URL}/.json?after=${next}&limit=25`
+    );
+    if (!response.ok) throw new Error("Network error");
+    const data = await response.json();
+    return data;
+  }
+);
+
+export const fetchMorePostsBefore = createAsyncThunk(
+  "homePage/fetchMorePostsBefore",
+  async (before) => {
+    if (!before) return;
+    console.log("Fetching posts before:", before);
+    console.log(`${REDDIT_BASE_URL}/.json?before=${before}&limit=25`);
+    const response = await fetch(
+      `${REDDIT_BASE_URL}/.json?before=${before}&limit=25`
+    );
+    if (!response.ok) throw new Error("Network error");
+    const data = await response.json();
+    console.log("Fetched data before:", data);
+    return data;
+  }
+);
 
 const homePageSlice = createSlice({
   name: "homePage",
   initialState: {
     isLoading: false,
+    isLoadingMorePosts: false,
     error: false,
-    posts: [
-      {
-        author: "Any_Gap9612",
-        id: "t3_1pm0mds",
-        subredditName: "r/mildlyinfuriating",
-        subreddit_id: "t5_2ubgg",
-        thumbnail:
-          "https://b.thumbs.redditmedia.com/7WlhG6c6ed3Spc7pbZm8QXROZxyLLbXdEL_K0V8lbZA.jpg",
-        timePosted: 1765672551,
-        title:
-          "I got uninvited to a friend’s holiday potluck, while I was on my way to it.",
-        upvotes: 18393,
-        url_overridden_by_dest: "https://i.redd.it/cvd6ean0f27g1.jpeg",
-      },
-    ],
+    errorLoadMore: null,
+    beforeCount: -1,
+    next: null,
+    before: null,
+    beforeOriginal: null,
+    posts: [],
   },
   reducers: {
     // Define your synchronous reducers here if needed
+    // addMorePosts: (state, action) => {
+    //   const { data, isAfter, isBefore } = action.payload;
+
+    //   if (isBefore) {
+    //     state.posts = [...data, ...state.posts];
+
+    //     if (state.posts.length > 50) {
+    //       state.posts.splice(state.posts.length - 25, state.posts.length);
+
+    //       state.next = state.posts[state.posts.length - 1]?.name || null;
+    //       state.before = state.posts[0]?.name || null;
+    //     }
+    //   }
+    //   if (isAfter) {
+    //     state.posts = [...state.posts, ...data];
+    //     if (state.posts.length > 50) {
+    //       state.posts.splice(0, 25);
+
+    //       state.before = state.posts[0]?.name || null;
+    //       state.next = state.posts[state.posts.length - 1]?.name || null;
+    //     }
+    //   }
+    // },
+    setBeforeCount: (state, action) => {
+      state.beforeCount += action.payload;
+    },
+    trimList: (state) => {
+      console.log("before trimming, posts length:", state.posts.length);
+      if (state.posts.length > 50) {
+        state.posts.splice(0, 25);
+      }
+      console.log("after trimming, posts length:", state.posts.length);
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.posts = action.payload.data.children.map(prepareData);
+        state.beforeOriginal = state.posts[0]?.name || null;
+        state.next = action.payload.data.after;
         console.log("Fetched posts:", state.posts);
         state.isLoading = false;
+        state.errorLoadMore = null;
         state.error = false;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
@@ -65,6 +111,40 @@ const homePageSlice = createSlice({
         console.log("Fetching posts...");
         state.isLoading = true;
         state.error = false;
+      })
+      .addCase(fetchMorePostsNext.pending, (state) => {
+        state.isLoadingMorePosts = true;
+        state.errorLoadMore = null;
+      })
+      .addCase(fetchMorePostsNext.fulfilled, (state, action) => {
+        state.isLoadingMorePosts = false;
+        state.posts = [
+          ...state.posts,
+          ...action.payload.data.children.map((item) => item.data),
+        ];
+        state.totalData = action.payload.data;
+        state.errorLoadMore = null;
+      })
+      .addCase(fetchMorePostsNext.rejected, (state, action) => {
+        state.isLoadingMorePosts = false;
+        state.errorLoadMore = action.error.message;
+      })
+      .addCase(fetchMorePostsBefore.pending, (state) => {
+        state.isLoadingMorePosts = true;
+        state.errorLoadMore = null;
+      })
+      .addCase(fetchMorePostsBefore.fulfilled, (state, action) => {
+        state.isLoadingMorePosts = false;
+        state.homeDataBefore = [
+          ...action.payload.data.children.map((item) => item.data),
+          ...state.posts,
+        ];
+        state.totalData = action.payload.data;
+        state.errorLoadMore = null;
+      })
+      .addCase(fetchMorePostsBefore.rejected, (state, action) => {
+        state.isLoadingMorePosts = false;
+        state.errorLoadMore = action.error.message;
       });
   },
 });
@@ -72,5 +152,13 @@ const homePageSlice = createSlice({
 export const postSelector = (state) => state.homePage.posts;
 export const isLoadingSelector = (state) => state.homePage.isLoading;
 export const errorSelector = (state) => state.homePage.error;
+export const nextSelector = (state) => state.homePage.next;
+export const beforeSelector = (state) => state.homePage.before;
+export const beforeOriginalSelector = (state) => state.homePage.beforeOriginal;
+export const beforeCountSelector = (state) => state.homePage.beforeCount;
+export const isLoadingMorePostsSelector = (state) =>
+  state.homePage.isLoadingMorePosts;
+export const errorLoadMoreSelector = (state) => state.homePage.errorLoadMore;
+export const { setBeforeCount, trimList } = homePageSlice.actions;
 
 export default homePageSlice.reducer;

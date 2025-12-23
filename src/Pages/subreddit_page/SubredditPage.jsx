@@ -4,12 +4,23 @@ import BackButton from "../../components/back_button/BackButton";
 import SubredditHeader from "../../components/subreddit_header/SubredditHeader.jsx";
 import { subredditPageSelector } from "./subredditPageSlice.js";
 import { useSelector } from "react-redux";
-
+import { LoadMoreSubredditPosts } from "./subredditPageSlice.js";
+import { trimSubredditList } from "./subredditPageSlice.js";
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
+import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
 
 const SubredditPage = () => {
   const subredditPageState = useSelector(subredditPageSelector);
-  const { sortBy, newPosts, top, hot, pending, error } = subredditPageState;
+  const {
+    sortBy,
+    newPosts,
+    top,
+    hot,
+    pending,
+    error,
+    isLoadingMorePosts,
+    errorLoadMore,
+  } = subredditPageState;
   let postsToRender = [];
   if (sortBy === "new") {
     postsToRender = newPosts;
@@ -35,6 +46,19 @@ const SubredditPage = () => {
           {postsToRender.map((post) => (
             <SinglePostMinimal key={post.id} post={post} />
           ))}
+          {isLoadingMorePosts ? (
+            <p>Loading more posts...</p>
+          ) : (
+            <>
+              <LoadMoreButton
+                prop={{
+                  loadMorePosts: () => LoadMoreSubredditPosts(subreddit_id),
+                  trimList: () => trimSubredditList(),
+                  error: errorLoadMore,
+                }}
+              />
+            </>
+          )}
         </div>
       )}
     </div>

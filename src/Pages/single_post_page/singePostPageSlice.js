@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
 
 // Async thunk to fetch Reddit post + comments by subreddit and postId
 export const fetchSingleRedditPost = createAsyncThunk(
   "singlePost/fetchSingleRedditPost",
   async ({ sub, post_id }) => {
     // const url = `https://corsproxy.io/?https://www.reddit.com/r/${sub}/comments/${post_id}.json`;
-    const url = `/reddit./r/${sub}/comments/${post_id}.json`;
+    // const url = `/reddit./r/${sub}/comments/${post_id}.json`;
+    const url = `${REDDIT_BASE_URL}/r/${sub}/comments/${post_id}.json`;
     const response = await fetch(url);
     if (!response.ok) throw new Error("Network error");
     const data = await response.json();

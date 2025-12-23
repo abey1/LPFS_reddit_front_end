@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { trimList } from "../home_page/homePageSlice";
+import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
 
 // Async thunk to fetch subreddit details by subreddit name
 export const fetchSubredditDetailsHot = createAsyncThunk(
   "subredditPage/fetchSubredditDetailsHot",
   async (subredditName) => {
-    const hotSortUrl = `https://www.reddit.com/r/${subredditName}.json?sort=hot`;
+    // const hotSortUrl = `https://www.reddit.com/r/${subredditName}.json?sort=hot`;
+    const hotSortUrl = `${REDDIT_BASE_URL}/r/${subredditName}.json?sort=hot`;
     const response = await fetch(hotSortUrl);
     if (!response.ok) throw new Error("Network error");
     const data = await response.json();
@@ -16,7 +17,8 @@ export const fetchSubredditDetailsHot = createAsyncThunk(
 export const fetchSubredditDetailsNew = createAsyncThunk(
   "subredditPage/fetchSubredditDetailsNew",
   async (subredditName) => {
-    const newSortUrl = `https://www.reddit.com/r/${subredditName}.json?sort=new`;
+    // const newSortUrl = `https://www.reddit.com/r/${subredditName}.json?sort=new`;
+    const newSortUrl = `${REDDIT_BASE_URL}/r/${subredditName}.json?sort=new`;
     const response = await fetch(newSortUrl);
     if (!response.ok) throw new Error("Network error");
     const data = await response.json();
@@ -27,7 +29,8 @@ export const fetchSubredditDetailsNew = createAsyncThunk(
 export const fetchSubredditDetailsTop = createAsyncThunk(
   "subredditPage/fetchSubredditDetailsTop",
   async (subredditName) => {
-    const topSortUrl = `https://www.reddit.com/r/${subredditName}.json?sort=top`;
+    // const topSortUrl = `https://www.reddit.com/r/${subredditName}.json?sort=top`;
+    const topSortUrl = `${REDDIT_BASE_URL}/r/${subredditName}.json?sort=top`;
     const response = await fetch(topSortUrl);
     if (!response.ok) throw new Error("Network error");
     const data = await response.json();

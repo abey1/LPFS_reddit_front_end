@@ -1,13 +1,25 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import BackButton from "../../components/back_button/BackButton";
-import { fetchSearchResults } from "./searchPageSlice.js";
+import {
+  fetchSearchResults,
+  fetchMoreSearchResults,
+} from "./searchPageSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import { searchPageSelector } from "./searchPageSlice.js";
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
+import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
+import { trimSearchResults } from "./searchPageSlice.js";
+
 const SearchPage = () => {
   const dispatch = useDispatch();
-  const { isLoading, error, searchResults } = useSelector(searchPageSelector);
+  const {
+    isLoading,
+    error,
+    searchResults,
+    isLoadingMoreSearchResults,
+    errorLoadMore,
+  } = useSelector(searchPageSelector);
   const { search_term } = useParams();
 
   useEffect(() => {
@@ -29,6 +41,21 @@ const SearchPage = () => {
         {searchResults.map((post) => (
           <SinglePostMinimal key={post.id} post={post} />
         ))}
+        {isLoadingMoreSearchResults ? (
+          <p>Loading more search results...</p>
+        ) : (
+          <LoadMoreButton
+            prop={{
+              loadMorePosts: () =>
+                fetchMoreSearchResults({
+                  query: search_term,
+                  after: searchResults[searchResults.length - 1]?.name || null,
+                }),
+              trimList: () => trimSearchResults(),
+              error: errorLoadMore,
+            }}
+          />
+        )}
       </div>
     </div>
   );

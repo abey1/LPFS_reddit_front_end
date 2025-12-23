@@ -5,7 +5,7 @@ import singlePageReducer from "./Pages/single_post_page/singePostPageSlice";
 import commentsReducer from "./components/comments/commentsSlice";
 import sideBarSubRedditReducer from "./components/side_bar_subreddit/sideBarSubRedditSlice";
 import subredditPageReducer from "./Pages/subreddit_page/subredditPageSlice";
-import searchPageReducer from "./Pages/search_page/searchPageSlice";
+import searchPageReducer from "./Pages/Search_page/searchPageSlice";
 
 const loggerMiddleware = () => (next) => (action) => {
   console.log("Before State:", store.getState());

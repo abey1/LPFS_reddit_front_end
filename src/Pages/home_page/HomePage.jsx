@@ -1,23 +1,29 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "./homePageSlice";
+import { fetchPosts } from "../../features/home_page/homePageSlice.js";
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
-import { postSelector } from "./homePageSlice";
-import { isLoadingSelector, errorSelector } from "./homePageSlice.js";
-import { nextSelector } from "./homePageSlice";
-import { errorLoadMoreSelector } from "./homePageSlice";
+import { postSelector } from "../../features/home_page/homePageSlice.js";
+import {
+  isLoadingSelector,
+  errorSelector,
+} from "../../features/home_page/homePageSlice.js";
+import { nextSelector } from "../../features/home_page/homePageSlice.js";
+import { errorLoadMoreSelector } from "../../features/home_page/homePageSlice.js";
 
 import { REDDIT_BASE_URL } from "../../api/redditBaseUrl.js";
 
 // import { addMorePosts } from "./homePageSlice.js";
-import { beforeSelector } from "./homePageSlice.js";
-import { beforeOriginalSelector } from "./homePageSlice.js";
-import { beforeCountSelector } from "./homePageSlice.js";
-import { setBeforeCount } from "./homePageSlice.js";
+import { beforeSelector } from "../../features/home_page/homePageSlice.js";
+import { beforeOriginalSelector } from "../../features/home_page/homePageSlice.js";
+import { beforeCountSelector } from "../../features/home_page/homePageSlice.js";
+import { setBeforeCount } from "../../features/home_page/homePageSlice.js";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
-import { fetchMorePostsNext, fetchMorePostsBefore } from "./homePageSlice.js";
-import { isLoadingMorePostsSelector } from "./homePageSlice.js";
-import { trimList } from "./homePageSlice.js";
+import {
+  fetchMorePostsNext,
+  fetchMorePostsBefore,
+} from "../../features/home_page/homePageSlice.js";
+import { isLoadingMorePostsSelector } from "../../features/home_page/homePageSlice.js";
+import { trimList } from "../../features/home_page/homePageSlice.js";
 
 const HomePage = () => {
   const dispatch = useDispatch();

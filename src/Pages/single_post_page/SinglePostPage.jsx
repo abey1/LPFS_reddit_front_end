@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import BackButton from "../../components/back_button/BackButton";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { singlePostSelector } from "./singePostPageSlice.js";
+import { singlePostSelector } from "../../features/single_post_page/singePostPageSlice.js";
 import { useSelector } from "react-redux";
-import { fetchSingleRedditPost } from "./singePostPageSlice.js";
+import { fetchSingleRedditPost } from "../../features/single_post_page/singePostPageSlice.js";
 import SinglePostPageDetail from "../../components/single_post/SinglePostPageDetail.jsx";
 import Comments from "../../components/comments/Comments.jsx";
 

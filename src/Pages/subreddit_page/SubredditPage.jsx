@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import BackButton from "../../components/back_button/BackButton";
 import SubredditHeader from "../../components/subreddit_header/SubredditHeader.jsx";
-import { subredditPageSelector } from "./subredditPageSlice.js";
+import { subredditPageSelector } from "../../features/subreddit_page/subredditPageSlice.js";
 import { useSelector } from "react-redux";
-import { LoadMoreSubredditPosts } from "./subredditPageSlice.js";
-import { trimSubredditList } from "./subredditPageSlice.js";
+import { LoadMoreSubredditPosts } from "../../features/subreddit_page/subredditPageSlice.js";
+import { trimSubredditList } from "../../features/subreddit_page/subredditPageSlice.js";
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
 

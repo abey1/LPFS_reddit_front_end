@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import navReducer from "./components/nav/navslice";
-import homeReducer from "./Pages/home_page/homePageSlice";
-import singlePageReducer from "./Pages/single_post_page/singePostPageSlice";
+import homeReducer from "./features/home_page/homePageSlice";
+import singlePageReducer from "./features/single_post_page/singePostPageSlice";
 import commentsReducer from "./components/comments/commentsSlice";
 import sideBarSubRedditReducer from "./components/side_bar_subreddit/sideBarSubRedditSlice";
-import subredditPageReducer from "./Pages/subreddit_page/subredditPageSlice";
-import searchPageReducer from "./Pages/Search_page/searchPageSlice";
+import subredditPageReducer from "./features/subreddit_page/subredditPageSlice";
+import searchPageReducer from "./features/search_page/searchPageSlice";
 
 const loggerMiddleware = () => (next) => (action) => {
   console.log("Before State:", store.getState());

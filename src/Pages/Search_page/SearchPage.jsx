@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import BackButton from "../../components/back_button/BackButton";
+import BackButton from "../../components/back_button/BackButton.jsx";
 import {
   fetchSearchResults,
   fetchMoreSearchResults,
-} from "./searchPageSlice.js";
+} from "../../features/search_page/searchPageSlice.js";
 import { useDispatch, useSelector } from "react-redux";
-import { searchPageSelector } from "./searchPageSlice.js";
+import { searchPageSelector } from "../../features/search_page/searchPageSlice.js";
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
-import { trimSearchResults } from "./searchPageSlice.js";
+import { trimSearchResults } from "../../features/search_page/searchPageSlice.js";
 
 const SearchPage = () => {
   const dispatch = useDispatch();

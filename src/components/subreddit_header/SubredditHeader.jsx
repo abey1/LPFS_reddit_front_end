@@ -4,15 +4,15 @@ import { selectSelectedSubreddit } from "../side_bar_subreddit/sideBarSubRedditS
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { subredditPageSelector } from "../../Pages/subreddit_page/subredditPageSlice.js";
+import { subredditPageSelector } from "../../features/subreddit_page/subredditPageSlice.js";
 import { useDispatch } from "react-redux";
 import { getProperSubId } from "../../utils/util.js";
-import { sortByReducer } from "../../Pages/subreddit_page/subredditPageSlice.js";
+import { sortByReducer } from "../../features/subreddit_page/subredditPageSlice.js";
 import {
   fetchSubredditDetailsNew,
   fetchSubredditDetailsTop,
   fetchSubredditDetailsHot,
-} from "../../Pages/subreddit_page/subredditPageSlice.js";
+} from "../../features/subreddit_page/subredditPageSlice.js";
 
 const SubredditHeader = () => {
   const selectedSubreddit = useSelector(selectSelectedSubreddit);

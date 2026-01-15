@@ -9,7 +9,7 @@ import SubredditPage from "./Pages/subreddit_page/SubredditPage.jsx";
 import SinglePostPage from "./Pages/single_post_page/SinglePostPage.jsx";
 import Root from "./components/root/Root.jsx";
 import Error_404 from "./Pages/404/Error_404.jsx";
-import SearchPage from "./Pages/Search_page/SearchPage.jsx";
+import SearchPage from "./Pages/search_page/SearchPage.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>

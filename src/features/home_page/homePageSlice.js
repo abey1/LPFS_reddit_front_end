@@ -1,44 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
-
-export const fetchPosts = createAsyncThunk("homePage/fetchPosts", async () => {
-  // const response = await fetch("/reddit/.json");
-  const response = await fetch(`${REDDIT_BASE_URL}/.json`);
-  const data = await response.json();
-  return data;
-});
+import { apiFetchPosts, apiFetchMorePostsNext } from "../../api/redditApi";
 
 const prepareData = (rawPosts) => {
   return rawPosts.data;
 };
 
+export const fetchPosts = createAsyncThunk("homePage/fetchPosts", async () => {
+  return await apiFetchPosts();
+});
+
 export const fetchMorePostsNext = createAsyncThunk(
   "homePage/fetchMorePostsNext",
   async (next) => {
-    if (!next) return;
-    const response = await fetch(
-      `${REDDIT_BASE_URL}/.json?after=${next}&limit=25`
-    );
-    if (!response.ok) throw new Error("Network error");
-    const data = await response.json();
-    return data;
-  }
-);
-
-export const fetchMorePostsBefore = createAsyncThunk(
-  "homePage/fetchMorePostsBefore",
-  async (before) => {
-    if (!before) return;
-    console.log("Fetching posts before:", before);
-    console.log(`${REDDIT_BASE_URL}/.json?before=${before}&limit=25`);
-    const response = await fetch(
-      `${REDDIT_BASE_URL}/.json?before=${before}&limit=25`
-    );
-    if (!response.ok) throw new Error("Network error");
-    const data = await response.json();
-    console.log("Fetched data before:", data);
-    return data;
+    return apiFetchMorePostsNext(next);
   }
 );
 
@@ -56,33 +32,6 @@ const homePageSlice = createSlice({
     posts: [],
   },
   reducers: {
-    // Define your synchronous reducers here if needed
-    // addMorePosts: (state, action) => {
-    //   const { data, isAfter, isBefore } = action.payload;
-
-    //   if (isBefore) {
-    //     state.posts = [...data, ...state.posts];
-
-    //     if (state.posts.length > 50) {
-    //       state.posts.splice(state.posts.length - 25, state.posts.length);
-
-    //       state.next = state.posts[state.posts.length - 1]?.name || null;
-    //       state.before = state.posts[0]?.name || null;
-    //     }
-    //   }
-    //   if (isAfter) {
-    //     state.posts = [...state.posts, ...data];
-    //     if (state.posts.length > 50) {
-    //       state.posts.splice(0, 25);
-
-    //       state.before = state.posts[0]?.name || null;
-    //       state.next = state.posts[state.posts.length - 1]?.name || null;
-    //     }
-    //   }
-    // },
-    setBeforeCount: (state, action) => {
-      state.beforeCount += action.payload;
-    },
     trimList: (state) => {
       console.log("before trimming, posts length:", state.posts.length);
       if (state.posts.length > 50) {
@@ -128,23 +77,6 @@ const homePageSlice = createSlice({
       .addCase(fetchMorePostsNext.rejected, (state, action) => {
         state.isLoadingMorePosts = false;
         state.errorLoadMore = action.error.message;
-      })
-      .addCase(fetchMorePostsBefore.pending, (state) => {
-        state.isLoadingMorePosts = true;
-        state.errorLoadMore = null;
-      })
-      .addCase(fetchMorePostsBefore.fulfilled, (state, action) => {
-        state.isLoadingMorePosts = false;
-        state.homeDataBefore = [
-          ...action.payload.data.children.map((item) => item.data),
-          ...state.posts,
-        ];
-        state.totalData = action.payload.data;
-        state.errorLoadMore = null;
-      })
-      .addCase(fetchMorePostsBefore.rejected, (state, action) => {
-        state.isLoadingMorePosts = false;
-        state.errorLoadMore = action.error.message;
       });
   },
 });
@@ -159,6 +91,6 @@ export const beforeCountSelector = (state) => state.homePage.beforeCount;
 export const isLoadingMorePostsSelector = (state) =>
   state.homePage.isLoadingMorePosts;
 export const errorLoadMoreSelector = (state) => state.homePage.errorLoadMore;
-export const { setBeforeCount, trimList } = homePageSlice.actions;
+export const { trimList } = homePageSlice.actions;
 
 export default homePageSlice.reducer;

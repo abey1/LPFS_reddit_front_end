@@ -16,12 +16,8 @@ import { REDDIT_BASE_URL } from "../../api/redditBaseUrl.js";
 import { beforeSelector } from "../../features/home_page/homePageSlice.js";
 import { beforeOriginalSelector } from "../../features/home_page/homePageSlice.js";
 import { beforeCountSelector } from "../../features/home_page/homePageSlice.js";
-import { setBeforeCount } from "../../features/home_page/homePageSlice.js";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
-import {
-  fetchMorePostsNext,
-  fetchMorePostsBefore,
-} from "../../features/home_page/homePageSlice.js";
+import { fetchMorePostsNext } from "../../features/home_page/homePageSlice.js";
 import { isLoadingMorePostsSelector } from "../../features/home_page/homePageSlice.js";
 import { trimList } from "../../features/home_page/homePageSlice.js";
 
@@ -80,20 +76,6 @@ const HomePage = () => {
       ) : (
         <div className="flex w-full items-start justify-start ">
           <div className=" w-full md:w-4/5 ">
-            {/* {beforeCount > 0 &&
-              (isLoadingMorePosts ? (
-                <p>Loading more posts...</p>
-              ) : (
-                <LoadMoreButton
-                  prop={{
-                    loadMorePosts: () =>
-                      fetchMorePostsBefore(posts[0]?.name || null),
-                    setBeforeCount: () => setBeforeCount(-1),
-                    trimList: null,
-                    isNext: false,
-                  }}
-                />
-              ))} */}
             {posts.map((post) => (
               <SinglePostMinimal key={post.id} post={post} />
             ))}

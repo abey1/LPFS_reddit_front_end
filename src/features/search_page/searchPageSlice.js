@@ -1,30 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
+import {
+  apiFetchSearchResults,
+  apiFetchMoreSearchResults,
+} from "../../api/redditApi";
 
 export const fetchSearchResults = createAsyncThunk(
   "searchPage/fetchSearchResults",
   async (query) => {
-    const response = await fetch(
-      `${REDDIT_BASE_URL}/search.json?q=${encodeURIComponent(query)}&limit=25`
-    );
-    if (!response.ok) throw new Error("Network error");
-    const data = await response.json();
-    return data;
+    return apiFetchSearchResults(query);
   }
 );
 
 export const fetchMoreSearchResults = createAsyncThunk(
   "searchPage/fetchMoreSearchResults",
   async ({ query, after }) => {
-    if (!after) return;
-    const response = await fetch(
-      `${REDDIT_BASE_URL}/search.json?q=${encodeURIComponent(
-        query
-      )}&after=${after}&limit=25`
-    );
-    if (!response.ok) throw new Error("Network error");
-    const data = await response.json();
-    return data;
+    return apiFetchMoreSearchResults(query, after);
   }
 );
 

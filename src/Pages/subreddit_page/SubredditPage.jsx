@@ -51,11 +51,14 @@ const SubredditPage = () => {
           ) : (
             <>
               <LoadMoreButton
-                prop={{
-                  loadMorePosts: () => loadMoreSubredditPosts(subreddit_id),
-                  trimList: () => trimSubredditList(),
-                  error: errorLoadMore,
-                }}
+                onLoadMore={() => loadMoreSubredditPosts(subreddit_id)}
+                onTrim={() => trimSubredditList()}
+                error={errorLoadMore}
+                // prop={{
+                //   loadMorePosts: () => loadMoreSubredditPosts(subreddit_id),
+                //   trimList: () => trimSubredditList(),
+                //   error: errorLoadMore,
+                // }}
               />
             </>
           )}

@@ -75,16 +75,24 @@ const HomePage = () => {
               <p>Loading more posts...</p>
             ) : (
               <LoadMoreButton
-                prop={{
-                  loadMorePosts: () => {
-                    // posts[posts.length - 1] this is supposed to be next
-                    if (posts[posts.length - 1])
-                      return fetchMorePostsNext(posts[posts.length - 1]?.name);
-                    else return null;
-                  },
-                  trimList: () => trimList(),
-                  error: errorLoadMore,
+                onLoadMore={() => {
+                  // posts[posts.length - 1] this is supposed to be next
+                  if (posts[posts.length - 1])
+                    return fetchMorePostsNext(posts[posts.length - 1]?.name);
+                  else return null;
                 }}
+                onTrim={() => trimList()}
+                error={errorLoadMore}
+                // prop={{
+                //   loadMorePosts: () => {
+                //     // posts[posts.length - 1] this is supposed to be next
+                //     if (posts[posts.length - 1])
+                //       return fetchMorePostsNext(posts[posts.length - 1]?.name);
+                //     else return null;
+                //   },
+                //   trimList: () => trimList(),
+                //   error: errorLoadMore,
+                // }}
               />
             )}
           </div>

@@ -45,22 +45,35 @@ const SearchPage = () => {
           <p>Loading more search results...</p>
         ) : (
           <LoadMoreButton
-            prop={{
-              loadMorePosts: () => {
-                const after = searchResults[searchResults.length - 1]?.name;
-                if (after) {
-                  return fetchMoreSearchResults({
-                    query: search_term,
-                    after:
-                      searchResults[searchResults.length - 1]?.name || null,
-                  });
-                } else {
-                  return null;
-                }
-              },
-              trimList: () => trimSearchResults(),
-              error: errorLoadMore,
+            onLoadMore={() => {
+              const after = searchResults[searchResults.length - 1]?.name;
+              if (after) {
+                return fetchMoreSearchResults({
+                  query: search_term,
+                  after: searchResults[searchResults.length - 1]?.name || null,
+                });
+              } else {
+                return null;
+              }
             }}
+            onTrim={() => trimSearchResults()}
+            error={errorLoadMore}
+            // prop={{
+            //   loadMorePosts: () => {
+            //     const after = searchResults[searchResults.length - 1]?.name;
+            //     if (after) {
+            //       return fetchMoreSearchResults({
+            //         query: search_term,
+            //         after:
+            //           searchResults[searchResults.length - 1]?.name || null,
+            //       });
+            //     } else {
+            //       return null;
+            //     }
+            //   },
+            //   trimList: () => trimSearchResults(),
+            //   error: errorLoadMore,
+            // }}
           />
         )}
       </div>

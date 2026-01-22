@@ -45,7 +45,6 @@ const Search = () => {
         className="lg:hidden md:hidden block flex items-center justify-center ml-2"
         onClick={() => {
           dispatch(toggleNav());
-          console.log("toggled");
         }}
       >
         {isNavOpen ? <FaX /> : <FaBars />}

@@ -33,11 +33,9 @@ const homePageSlice = createSlice({
   },
   reducers: {
     trimList: (state) => {
-      console.log("before trimming, posts length:", state.posts.length);
       if (state.posts.length > 50) {
         state.posts.splice(0, 25);
       }
-      console.log("after trimming, posts length:", state.posts.length);
     },
   },
   extraReducers: (builder) => {
@@ -46,7 +44,6 @@ const homePageSlice = createSlice({
         state.posts = action.payload.data.children.map(prepareData);
         state.beforeOriginal = state.posts[0]?.name || null;
         state.next = action.payload.data.after;
-        console.log("Fetched posts:", state.posts);
         state.isLoading = false;
         state.errorLoadMore = null;
         state.error = false;
@@ -57,7 +54,6 @@ const homePageSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchPosts.pending, (state) => {
-        console.log("Fetching posts...");
         state.isLoading = true;
         state.error = false;
       })

@@ -37,8 +37,6 @@ const Comments = ({ sub, post_id }) => {
     );
   }
 
-  console.log("Comments data:", comments);
-
   return (
     <div className="space-y-4">
       {comments.map((comment) => (

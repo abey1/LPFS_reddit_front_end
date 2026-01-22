@@ -19,12 +19,6 @@ const SubredditHeader = () => {
   const dispatch = useDispatch();
   const subredditPageState = useSelector(subredditPageSelector);
   const { sortBy } = subredditPageState;
-  console.log("sortBy in SubredditHeader:", sortBy);
-  console.log("SubredditPageState:", subredditPageState);
-  console.log(
-    "SelectedSubreddit in SubredditHeader:",
-    getProperSubId(selectedSubreddit.display_name_prefixed)
-  );
   const handleSort = (sortType) => {
     if (sortType === "hot") {
       dispatch(
@@ -58,10 +52,7 @@ const SubredditHeader = () => {
     );
     dispatch(sortByReducer("hot"));
   }, [dispatch, selectedSubreddit]);
-
-  console.log("SubredditHeader selectedSubreddit:", selectedSubreddit);
   const { header_img, icon_img, display_name_prefixed } = selectedSubreddit;
-  console.log("selected subreddit:", { selectedSubreddit });
   return (
     <div className="w-full">
       {/* Banner */}

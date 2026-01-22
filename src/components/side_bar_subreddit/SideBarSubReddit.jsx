@@ -18,8 +18,6 @@ const SideBarSubReddit = () => {
     dispatch(fetchPopularSubreddits());
   }, [dispatch]);
 
-  console.log("Subreddits:", subreddits);
-
   if (isLoading) {
     return (
       <div>

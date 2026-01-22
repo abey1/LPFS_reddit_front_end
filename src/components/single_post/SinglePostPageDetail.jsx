@@ -16,7 +16,6 @@ const SinglePostPageDetail = ({ post }) => {
     upvotes,
     video,
   } = post;
-  console.log("SinglePostPageDetail post:", post);
   return (
     <div className="p-2">
       <div className="bg-white rounded-2xl shadow-md  hover:shadow-lg transition-shadow duration-300 w-full hover:cursor-pointer border">

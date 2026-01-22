@@ -11,9 +11,7 @@ import { toggleNav } from "../nav/navslice.js";
 const Root = () => {
   const isNavOpen = useSelector(selectIsNavOpen);
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log("isNavOpen changed:", isNavOpen);
-  }, [isNavOpen]);
+  useEffect(() => {}, [isNavOpen]);
 
   return (
     <>

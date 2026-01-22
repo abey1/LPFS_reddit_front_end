@@ -20,7 +20,6 @@ const SinglePostMinimal = (post) => {
     timePosted,
     url_overridden_by_dest,
   } = post.post;
-  console.log("SinglePostMinimal post:", post.post);
   let subredditNameFinal = "";
   if (subredditName) {
     subredditNameFinal = subredditName;

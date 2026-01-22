@@ -8,9 +8,7 @@ import subredditPageReducer from "./features/subreddit_page/subredditPageSlice";
 import searchPageReducer from "./features/search_page/searchPageSlice";
 
 const loggerMiddleware = () => (next) => (action) => {
-  console.log("Before State:", store.getState());
   let result = next(action);
-  console.log("Next State:", store.getState());
   return result;
 };
 

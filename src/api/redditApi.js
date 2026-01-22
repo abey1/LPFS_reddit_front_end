@@ -44,7 +44,6 @@ export const apiFetchSearchResults = async (query) => {
 };
 
 export const apiFetchMoreSearchResults = async (query, after) => {
-  if (!after) return;
   const response = await fetch(
     urlapis.urlApiFetchMoreSearchResults(query, after)
   );

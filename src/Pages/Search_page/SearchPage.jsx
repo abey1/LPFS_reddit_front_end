@@ -46,11 +46,18 @@ const SearchPage = () => {
         ) : (
           <LoadMoreButton
             prop={{
-              loadMorePosts: () =>
-                fetchMoreSearchResults({
-                  query: search_term,
-                  after: searchResults[searchResults.length - 1]?.name || null,
-                }),
+              loadMorePosts: () => {
+                const after = searchResults[searchResults.length - 1]?.name;
+                if (after) {
+                  return fetchMoreSearchResults({
+                    query: search_term,
+                    after:
+                      searchResults[searchResults.length - 1]?.name || null,
+                  });
+                } else {
+                  return null;
+                }
+              },
               trimList: () => trimSearchResults(),
               error: errorLoadMore,
             }}

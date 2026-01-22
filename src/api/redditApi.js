@@ -30,7 +30,6 @@ export const apiFetchPosts = async () => {
 };
 
 export const apiFetchMorePostsNext = async (next) => {
-  if (!next) return;
   const response = await fetch(urlapis.urlApiFetchMorePostsNext(next));
   if (!response.ok) throw new Error("Network error");
   const data = await response.json();

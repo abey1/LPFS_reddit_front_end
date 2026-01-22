@@ -5,7 +5,7 @@ const LoadMoreButton = ({ prop }) => {
   const { loadMorePosts, trimList, error } = prop;
   const dispatch = useDispatch();
   const handleLoadMore = () => {
-    dispatch(loadMorePosts());
+    if (loadMorePosts) dispatch(loadMorePosts());
     if (trimList) dispatch(trimList());
   };
   return (

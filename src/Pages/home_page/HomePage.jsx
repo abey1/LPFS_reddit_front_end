@@ -76,8 +76,12 @@ const HomePage = () => {
             ) : (
               <LoadMoreButton
                 prop={{
-                  loadMorePosts: () =>
-                    fetchMorePostsNext(posts[posts.length - 1]?.name || null),
+                  loadMorePosts: () => {
+                    // posts[posts.length - 1] this is supposed to be next
+                    if (posts[posts.length - 1])
+                      return fetchMorePostsNext(posts[posts.length - 1]?.name);
+                    else return null;
+                  },
                   trimList: () => trimList(),
                   error: errorLoadMore,
                 }}

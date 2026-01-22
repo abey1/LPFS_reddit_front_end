@@ -4,7 +4,7 @@ import BackButton from "../../components/back_button/BackButton";
 import SubredditHeader from "../../components/subreddit_header/SubredditHeader.jsx";
 import { subredditPageSelector } from "../../features/subreddit_page/subredditPageSlice.js";
 import { useSelector } from "react-redux";
-import { LoadMoreSubredditPosts } from "../../features/subreddit_page/subredditPageSlice.js";
+import { loadMoreSubredditPosts } from "../../features/subreddit_page/subredditPageSlice.js";
 import { trimSubredditList } from "../../features/subreddit_page/subredditPageSlice.js";
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
@@ -52,7 +52,7 @@ const SubredditPage = () => {
             <>
               <LoadMoreButton
                 prop={{
-                  loadMorePosts: () => LoadMoreSubredditPosts(subreddit_id),
+                  loadMorePosts: () => loadMoreSubredditPosts(subreddit_id),
                   trimList: () => trimSubredditList(),
                   error: errorLoadMore,
                 }}

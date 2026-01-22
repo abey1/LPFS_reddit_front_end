@@ -1,59 +1,39 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { REDDIT_BASE_URL } from "../../api/redditBaseUrl";
-
+import {
+  apiFetchSubredditDetailsHot,
+  apiFetchSubredditDetailsNew,
+  apiFetchSubredditDetailsTop,
+  apiLoadMoreSubredditPosts,
+} from "../../api/redditApi";
 // Async thunk to fetch subreddit details by subreddit name
 export const fetchSubredditDetailsHot = createAsyncThunk(
   "subredditPage/fetchSubredditDetailsHot",
   async (subredditName) => {
-    // const hotSortUrl = `https://www.reddit.com/r/${subredditName}.json?sort=hot`;
-    const hotSortUrl = `${REDDIT_BASE_URL}/r/${subredditName}.json?sort=hot`;
-    const response = await fetch(hotSortUrl);
-    if (!response.ok) throw new Error("Network error");
-    const data = await response.json();
-    return data;
+    return apiFetchSubredditDetailsHot(subredditName);
   }
 );
 
 export const fetchSubredditDetailsNew = createAsyncThunk(
   "subredditPage/fetchSubredditDetailsNew",
   async (subredditName) => {
-    // const newSortUrl = `https://www.reddit.com/r/${subredditName}.json?sort=new`;
-    const newSortUrl = `${REDDIT_BASE_URL}/r/${subredditName}.json?sort=new`;
-    const response = await fetch(newSortUrl);
-    if (!response.ok) throw new Error("Network error");
-    const data = await response.json();
-    return data;
+    return apiFetchSubredditDetailsNew(subredditName);
   }
 );
 
 export const fetchSubredditDetailsTop = createAsyncThunk(
   "subredditPage/fetchSubredditDetailsTop",
   async (subredditName) => {
-    // const topSortUrl = `https://www.reddit.com/r/${subredditName}.json?sort=top`;
-    const topSortUrl = `${REDDIT_BASE_URL}/r/${subredditName}.json?sort=top`;
-    const response = await fetch(topSortUrl);
-    if (!response.ok) throw new Error("Network error");
-    const data = await response.json();
-    return data;
+    return apiFetchSubredditDetailsTop(subredditName);
   }
 );
 
-export const LoadMoreSubredditPosts = createAsyncThunk(
-  "subredditPage/LoadMoreSubredditPosts",
+export const loadMoreSubredditPosts = createAsyncThunk(
+  "subredditPage/loadMoreSubredditPosts",
   async (subredditName, thunkAPI) => {
     const state = thunkAPI.getState();
     const after = state.subredditPage.next;
-    const response = await fetch(
-      `https://www.reddit.com/r/${subredditName}.json?after=${after}&limit=25`
-    );
-    if (!response.ok) throw new Error("Network error");
-    const data = await response.json();
-    console.log(
-      "load more subreddit url:",
-      `https://www.reddit.com/r/${subredditName}.json?after=${after}&limit=25`
-    );
-    console.log("Load more subreddit posts data:", data);
-    return data;
+    return apiLoadMoreSubredditPosts(subredditName, after);
   }
 );
 
@@ -141,11 +121,11 @@ const subredditPageSlice = createSlice({
         state.pending = false;
         state.error = action.error.message;
       })
-      .addCase(LoadMoreSubredditPosts.pending, (state) => {
+      .addCase(loadMoreSubredditPosts.pending, (state) => {
         state.isLoadingMorePosts = true;
         state.error = null;
       })
-      .addCase(LoadMoreSubredditPosts.fulfilled, (state, action) => {
+      .addCase(loadMoreSubredditPosts.fulfilled, (state, action) => {
         state.isLoadingMorePosts = false;
         state.errorLoadMore = null;
         if (state.sortBy === "hot") {
@@ -166,7 +146,7 @@ const subredditPageSlice = createSlice({
         }
         state.next = action.payload.data.after;
       })
-      .addCase(LoadMoreSubredditPosts.rejected, (state, action) => {
+      .addCase(loadMoreSubredditPosts.rejected, (state, action) => {
         state.isLoadingMorePosts = false;
         state.errorLoadMore = action.error.message;
       });

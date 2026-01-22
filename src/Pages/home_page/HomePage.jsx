@@ -49,8 +49,6 @@ const HomePage = () => {
   //   );
   // }, [homeDataBefore]);
 
-  useEffect(() => {}, [before]);
-
   return (
     <>
       {isLoading ? (

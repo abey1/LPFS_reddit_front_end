@@ -33,25 +33,17 @@ const HomePage = () => {
   const beforeCount = useSelector(beforeCountSelector);
   const isLoadingMorePosts = useSelector(isLoadingMorePostsSelector);
 
-  console.log("beforeCount:", beforeCount);
-  console.log("before:", before);
-  console.log("before original:", beforeOriginal);
-
-  console.log("Posts in HomePage:", posts);
-
   useEffect(() => {
     dispatch(fetchPosts());
   }, []);
 
   // useEffect(() => {
-  //   console.log("Home data from LoadMore slice:", homeDataNext);
   //   dispatch(
   //     addMorePosts({ data: homeDataNext, isAfter: true, isBefore: false })
   //   );
   // }, [homeDataNext]);
 
   // useEffect(() => {
-  //   console.log("Home data from LoadMore slice:", homeDataBefore);
   //   dispatch(
   //     addMorePosts({ data: homeDataBefore, isAfter: false, isBefore: true })
   //   );
@@ -65,7 +57,7 @@ const HomePage = () => {
         <p>Loading posts...</p>
       ) : error ? (
         <div>
-          <p>Error loading posts. Please try again later.</p>
+          <p>{error}</p>
           <button
             className="p-5 hover:cursor-pointer"
             onClick={() => dispatch(fetchPosts())}

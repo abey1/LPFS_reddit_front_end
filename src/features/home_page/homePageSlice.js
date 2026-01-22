@@ -23,7 +23,7 @@ const homePageSlice = createSlice({
   initialState: {
     isLoading: false,
     isLoadingMorePosts: false,
-    error: false,
+    error: null,
     errorLoadMore: null,
     beforeCount: -1,
     next: null,
@@ -46,16 +46,16 @@ const homePageSlice = createSlice({
         state.next = action.payload.data.after;
         state.isLoading = false;
         state.errorLoadMore = null;
-        state.error = false;
+        state.error = null;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         console.error("Failed to fetch posts:", action.error);
-        state.error = true;
+        state.error = action.error.message;
         state.isLoading = false;
       })
       .addCase(fetchPosts.pending, (state) => {
         state.isLoading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(fetchMorePostsNext.pending, (state) => {
         state.isLoadingMorePosts = true;

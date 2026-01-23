@@ -21,6 +21,8 @@ import { fetchMorePostsNext } from "../../features/home_page/homePageSlice.js";
 import { isLoadingMorePostsSelector } from "../../features/home_page/homePageSlice.js";
 import { trimList } from "../../features/home_page/homePageSlice.js";
 
+import { Virtuoso } from "react-virtuoso";
+
 const HomePage = () => {
   const dispatch = useDispatch();
   const posts = useSelector(postSelector);
@@ -66,10 +68,41 @@ const HomePage = () => {
       ) : (
         <div className="flex w-full items-start justify-start ">
           <div className=" w-full md:w-4/5 ">
-            {posts.map((post) => (
+            {console.log("posts = ", posts)}
+            <div style={{ height: "100vh", width: "100%" }}>
+              <Virtuoso
+                data={posts}
+                itemContent={(index, post) => (
+                  <SinglePostMinimal key={post.id} post={post} />
+                )}
+                components={{
+                  Footer: () => {
+                    if (isLoadingMorePosts) return <p>Loading more posts...</p>;
+                    else
+                      return (
+                        <LoadMoreButton
+                          onLoadMore={() => {
+                            // posts[posts.length - 1] this is supposed to be next
+                            if (posts[posts.length - 1])
+                              return fetchMorePostsNext(
+                                posts[posts.length - 1]?.name,
+                              );
+                            else return null;
+                          }}
+                          onTrim={() => trimList()}
+                          error={errorLoadMore}
+                        />
+                      );
+                  },
+                }}
+              />
+            </div>
+
+            {/* {posts.map((post) => (
               <SinglePostMinimal key={post.id} post={post} />
-            ))}
-            {isLoadingMorePosts ? (
+            ))}{" "} */}
+
+            {/* {isLoadingMorePosts ? (
               <p>Loading more posts...</p>
             ) : (
               <LoadMoreButton
@@ -81,18 +114,8 @@ const HomePage = () => {
                 }}
                 onTrim={() => trimList()}
                 error={errorLoadMore}
-                // prop={{
-                //   loadMorePosts: () => {
-                //     // posts[posts.length - 1] this is supposed to be next
-                //     if (posts[posts.length - 1])
-                //       return fetchMorePostsNext(posts[posts.length - 1]?.name);
-                //     else return null;
-                //   },
-                //   trimList: () => trimList(),
-                //   error: errorLoadMore,
-                // }}
               />
-            )}
+            )} */}
           </div>
         </div>
       )}

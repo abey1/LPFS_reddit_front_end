@@ -31,13 +31,6 @@ const homePageSlice = createSlice({
     beforeOriginal: null,
     posts: [],
   },
-  reducers: {
-    trimList: (state) => {
-      if (state.posts.length > 50) {
-        // state.posts.splice(0, 25);
-      }
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.fulfilled, (state, action) => {
@@ -87,6 +80,5 @@ export const beforeCountSelector = (state) => state.homePage.beforeCount;
 export const isLoadingMorePostsSelector = (state) =>
   state.homePage.isLoadingMorePosts;
 export const errorLoadMoreSelector = (state) => state.homePage.errorLoadMore;
-export const { trimList } = homePageSlice.actions;
 
 export default homePageSlice.reducer;

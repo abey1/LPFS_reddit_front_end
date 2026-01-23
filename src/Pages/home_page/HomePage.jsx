@@ -19,7 +19,6 @@ import { beforeCountSelector } from "../../features/home_page/homePageSlice.js";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
 import { fetchMorePostsNext } from "../../features/home_page/homePageSlice.js";
 import { isLoadingMorePostsSelector } from "../../features/home_page/homePageSlice.js";
-import { trimList } from "../../features/home_page/homePageSlice.js";
 
 import { Virtuoso } from "react-virtuoso";
 
@@ -87,7 +86,7 @@ const HomePage = () => {
                               );
                             else return null;
                           }}
-                          onTrim={() => trimList()}
+                          onTrim={() => null}
                           error={errorLoadMore}
                         />
                       );

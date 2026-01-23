@@ -29,13 +29,6 @@ const searchPageSlice = createSlice({
     next: null,
     searchResults: [],
   },
-  reducers: {
-    trimSearchResults: (state) => {
-      if (state.searchResults.length > 50) {
-        // state.searchResults.splice(0, 25);
-      }
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSearchResults.pending, (state) => {
@@ -71,5 +64,5 @@ const searchPageSlice = createSlice({
 });
 
 export const searchPageSelector = (state) => state.searchPage;
-export const { trimSearchResults } = searchPageSlice.actions;
+
 export default searchPageSlice.reducer;

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchPageSelector } from "../../features/search_page/searchPageSlice.js";
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
-import { trimSearchResults } from "../../features/search_page/searchPageSlice.js";
+
 import { Virtuoso } from "react-virtuoso";
 
 const SearchPage = () => {
@@ -64,7 +64,7 @@ const SearchPage = () => {
                           return null;
                         }
                       }}
-                      onTrim={() => trimSearchResults()}
+                      onTrim={() => null}
                       error={errorLoadMore}
                     />
                   );

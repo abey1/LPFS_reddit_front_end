@@ -55,7 +55,6 @@ const SubredditPage = () => {
                     return (
                       <LoadMoreButton
                         onLoadMore={() => loadMoreSubredditPosts(subreddit_id)}
-                        onTrim={() => null}
                         error={errorLoadMore}
                       />
                     );
@@ -63,25 +62,6 @@ const SubredditPage = () => {
               }}
             />
           </div>
-          {/* {postsToRender.map((post) => (
-            <SinglePostMinimal key={post.id} post={post} />
-          ))}
-          {isLoadingMorePosts ? (
-            <p>Loading more posts...</p>
-          ) : (
-            <>
-              <LoadMoreButton
-                onLoadMore={() => loadMoreSubredditPosts(subreddit_id)}
-                onTrim={() => trimSubredditList()}
-                error={errorLoadMore}
-                // prop={{
-                //   loadMorePosts: () => loadMoreSubredditPosts(subreddit_id),
-                //   trimList: () => trimSubredditList(),
-                //   error: errorLoadMore,
-                // }}
-              />
-            </>
-          )} */}
         </div>
       )}
     </div>

@@ -1,12 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-const LoadMoreButton = ({ onLoadMore, onTrim, error }) => {
+const LoadMoreButton = ({ onLoadMore, error }) => {
   // const { loadMorePosts, trimList, error } = prop;
   const dispatch = useDispatch();
   const handleLoadMore = () => {
     if (onLoadMore) dispatch(onLoadMore());
-    if (onTrim) dispatch(onTrim());
   };
   return (
     <div className="flex justify-center">

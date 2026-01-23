@@ -15,7 +15,7 @@ export const fetchMorePostsNext = createAsyncThunk(
   "homePage/fetchMorePostsNext",
   async (next) => {
     return apiFetchMorePostsNext(next);
-  }
+  },
 );
 
 const homePageSlice = createSlice({
@@ -34,7 +34,7 @@ const homePageSlice = createSlice({
   reducers: {
     trimList: (state) => {
       if (state.posts.length > 50) {
-        state.posts.splice(0, 25);
+        // state.posts.splice(0, 25);
       }
     },
   },

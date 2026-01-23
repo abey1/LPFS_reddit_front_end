@@ -8,6 +8,7 @@ import { loadMoreSubredditPosts } from "../../features/subreddit_page/subredditP
 import { trimSubredditList } from "../../features/subreddit_page/subredditPageSlice.js";
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
+import { Virtuoso } from "react-virtuoso";
 
 const SubredditPage = () => {
   const subredditPageState = useSelector(subredditPageSelector);
@@ -43,7 +44,26 @@ const SubredditPage = () => {
         <p>Error: {error}</p>
       ) : (
         <div className=" w-full md:w-4/5 ">
-          {postsToRender.map((post) => (
+          <div style={{ height: "100vh", width: "100%" }}>
+            <Virtuoso
+              data={postsToRender}
+              itemContent={(index, post) => <SinglePostMinimal post={post} />}
+              components={{
+                Footer: () => {
+                  if (isLoadingMorePosts) return <p>Loading more posts...</p>;
+                  else
+                    return (
+                      <LoadMoreButton
+                        onLoadMore={() => loadMoreSubredditPosts(subreddit_id)}
+                        onTrim={() => trimSubredditList()}
+                        error={errorLoadMore}
+                      />
+                    );
+                },
+              }}
+            />
+          </div>
+          {/* {postsToRender.map((post) => (
             <SinglePostMinimal key={post.id} post={post} />
           ))}
           {isLoadingMorePosts ? (
@@ -61,7 +81,7 @@ const SubredditPage = () => {
                 // }}
               />
             </>
-          )}
+          )} */}
         </div>
       )}
     </div>

@@ -64,7 +64,6 @@ const SearchPage = () => {
                           return null;
                         }
                       }}
-                      onTrim={() => null}
                       error={errorLoadMore}
                     />
                   );
@@ -72,28 +71,6 @@ const SearchPage = () => {
             }}
           />
         </div>
-        {/* {searchResults.map((post) => (
-          <SinglePostMinimal key={post.id} post={post} />
-        ))}
-        {isLoadingMoreSearchResults ? (
-          <p>Loading more search results...</p>
-        ) : (
-          <LoadMoreButton
-            onLoadMore={() => {
-              const after = searchResults[searchResults.length - 1]?.name;
-              if (after) {
-                return fetchMoreSearchResults({
-                  query: search_term,
-                  after: searchResults[searchResults.length - 1]?.name || null,
-                });
-              } else {
-                return null;
-              }
-            }}
-            onTrim={() => trimSearchResults()}
-            error={errorLoadMore}
-          />
-        )} */}
       </div>
     </div>
   );

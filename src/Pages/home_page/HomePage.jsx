@@ -86,7 +86,6 @@ const HomePage = () => {
                               );
                             else return null;
                           }}
-                          onTrim={() => null}
                           error={errorLoadMore}
                         />
                       );
@@ -94,25 +93,6 @@ const HomePage = () => {
                 }}
               />
             </div>
-
-            {/* {posts.map((post) => (
-              <SinglePostMinimal key={post.id} post={post} />
-            ))}{" "} */}
-
-            {/* {isLoadingMorePosts ? (
-              <p>Loading more posts...</p>
-            ) : (
-              <LoadMoreButton
-                onLoadMore={() => {
-                  // posts[posts.length - 1] this is supposed to be next
-                  if (posts[posts.length - 1])
-                    return fetchMorePostsNext(posts[posts.length - 1]?.name);
-                  else return null;
-                }}
-                onTrim={() => trimList()}
-                error={errorLoadMore}
-              />
-            )} */}
           </div>
         </div>
       )}

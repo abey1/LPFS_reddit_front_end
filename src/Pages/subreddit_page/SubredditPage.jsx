@@ -5,7 +5,7 @@ import SubredditHeader from "../../components/subreddit_header/SubredditHeader.j
 import { subredditPageSelector } from "../../features/subreddit_page/subredditPageSlice.js";
 import { useSelector } from "react-redux";
 import { loadMoreSubredditPosts } from "../../features/subreddit_page/subredditPageSlice.js";
-import { trimSubredditList } from "../../features/subreddit_page/subredditPageSlice.js";
+
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
 import { Virtuoso } from "react-virtuoso";
@@ -55,7 +55,7 @@ const SubredditPage = () => {
                     return (
                       <LoadMoreButton
                         onLoadMore={() => loadMoreSubredditPosts(subreddit_id)}
-                        onTrim={() => trimSubredditList()}
+                        onTrim={() => null}
                         error={errorLoadMore}
                       />
                     );

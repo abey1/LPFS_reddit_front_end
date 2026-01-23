@@ -11,21 +11,21 @@ export const fetchSubredditDetailsHot = createAsyncThunk(
   "subredditPage/fetchSubredditDetailsHot",
   async (subredditName) => {
     return apiFetchSubredditDetailsHot(subredditName);
-  }
+  },
 );
 
 export const fetchSubredditDetailsNew = createAsyncThunk(
   "subredditPage/fetchSubredditDetailsNew",
   async (subredditName) => {
     return apiFetchSubredditDetailsNew(subredditName);
-  }
+  },
 );
 
 export const fetchSubredditDetailsTop = createAsyncThunk(
   "subredditPage/fetchSubredditDetailsTop",
   async (subredditName) => {
     return apiFetchSubredditDetailsTop(subredditName);
-  }
+  },
 );
 
 export const loadMoreSubredditPosts = createAsyncThunk(
@@ -34,7 +34,7 @@ export const loadMoreSubredditPosts = createAsyncThunk(
     const state = thunkAPI.getState();
     const after = state.subredditPage.next;
     return apiLoadMoreSubredditPosts(subredditName, after);
-  }
+  },
 );
 
 const sortByOptions = ["hot", "new", "top"];
@@ -58,21 +58,21 @@ const subredditPageSlice = createSlice({
         state.sortBy = action.payload;
       }
     },
-    trimSubredditList: (state) => {
-      if (state.sortBy === "hot") {
-        if (state.hot.length > 50) {
-          state.hot = state.hot.splice(0, 25);
-        }
-      } else if (state.sortBy === "new") {
-        if (state.newPosts.length > 50) {
-          state.newPosts = state.newPosts.splice(0, 25);
-        }
-      } else if (state.sortBy === "top") {
-        if (state.top.length > 50) {
-          state.top = state.top.splice(0, 25);
-        }
-      }
-    },
+    // trimSubredditList: (state) => {
+    //   if (state.sortBy === "hot") {
+    //     if (state.hot.length > 50) {
+    //       state.hot = state.hot.splice(0, 25);
+    //     }
+    //   } else if (state.sortBy === "new") {
+    //     if (state.newPosts.length > 50) {
+    //       state.newPosts = state.newPosts.splice(0, 25);
+    //     }
+    //   } else if (state.sortBy === "top") {
+    //     if (state.top.length > 50) {
+    //       state.top = state.top.splice(0, 25);
+    //     }
+    //   }
+    // },
   },
 
   extraReducers: (builder) => {
@@ -153,6 +153,6 @@ const subredditPageSlice = createSlice({
   },
 });
 
-export const { sortByReducer, trimSubredditList } = subredditPageSlice.actions;
+export const { sortByReducer } = subredditPageSlice.actions;
 export const subredditPageSelector = (state) => state.subredditPage;
 export default subredditPageSlice.reducer;

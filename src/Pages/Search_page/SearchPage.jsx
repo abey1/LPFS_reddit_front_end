@@ -10,6 +10,7 @@ import { searchPageSelector } from "../../features/search_page/searchPageSlice.j
 import SinglePostMinimal from "../../components/single_post/SinglePostMinimal.jsx";
 import LoadMoreButton from "../../components/load_more/LoadMoreButton.jsx";
 import { trimSearchResults } from "../../features/search_page/searchPageSlice.js";
+import { Virtuoso } from "react-virtuoso";
 
 const SearchPage = () => {
   const dispatch = useDispatch();
@@ -38,7 +39,40 @@ const SearchPage = () => {
       <BackButton />
       <div>{`search page: ${search_term}`}</div>
       <div className=" w-full  md:w-4/5 ">
-        {searchResults.map((post) => (
+        <div style={{ height: "100vh", width: "100%" }}>
+          <Virtuoso
+            data={searchResults}
+            itemContent={(index, post) => <SinglePostMinimal post={post} />}
+            components={{
+              Footer: () => {
+                if (isLoadingMoreSearchResults)
+                  return <p>Loading more search results...</p>;
+                else
+                  return (
+                    <LoadMoreButton
+                      onLoadMore={() => {
+                        const after =
+                          searchResults[searchResults.length - 1]?.name;
+                        if (after) {
+                          return fetchMoreSearchResults({
+                            query: search_term,
+                            after:
+                              searchResults[searchResults.length - 1]?.name ||
+                              null,
+                          });
+                        } else {
+                          return null;
+                        }
+                      }}
+                      onTrim={() => trimSearchResults()}
+                      error={errorLoadMore}
+                    />
+                  );
+              },
+            }}
+          />
+        </div>
+        {/* {searchResults.map((post) => (
           <SinglePostMinimal key={post.id} post={post} />
         ))}
         {isLoadingMoreSearchResults ? (
@@ -58,24 +92,8 @@ const SearchPage = () => {
             }}
             onTrim={() => trimSearchResults()}
             error={errorLoadMore}
-            // prop={{
-            //   loadMorePosts: () => {
-            //     const after = searchResults[searchResults.length - 1]?.name;
-            //     if (after) {
-            //       return fetchMoreSearchResults({
-            //         query: search_term,
-            //         after:
-            //           searchResults[searchResults.length - 1]?.name || null,
-            //       });
-            //     } else {
-            //       return null;
-            //     }
-            //   },
-            //   trimList: () => trimSearchResults(),
-            //   error: errorLoadMore,
-            // }}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

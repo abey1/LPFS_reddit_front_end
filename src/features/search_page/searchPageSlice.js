@@ -9,14 +9,14 @@ export const fetchSearchResults = createAsyncThunk(
   "searchPage/fetchSearchResults",
   async (query) => {
     return apiFetchSearchResults(query);
-  }
+  },
 );
 
 export const fetchMoreSearchResults = createAsyncThunk(
   "searchPage/fetchMoreSearchResults",
   async ({ query, after }) => {
     return apiFetchMoreSearchResults(query, after);
-  }
+  },
 );
 
 const searchPageSlice = createSlice({
@@ -32,7 +32,7 @@ const searchPageSlice = createSlice({
   reducers: {
     trimSearchResults: (state) => {
       if (state.searchResults.length > 50) {
-        state.searchResults.splice(0, 25);
+        // state.searchResults.splice(0, 25);
       }
     },
   },
@@ -45,7 +45,7 @@ const searchPageSlice = createSlice({
       .addCase(fetchSearchResults.fulfilled, (state, action) => {
         state.isLoading = false;
         state.searchResults = action.payload.data.children.map(
-          (child) => child.data
+          (child) => child.data,
         );
       })
       .addCase(fetchSearchResults.rejected, (state, action) => {

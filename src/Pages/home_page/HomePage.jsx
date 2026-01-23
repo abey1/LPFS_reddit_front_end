@@ -72,9 +72,7 @@ const HomePage = () => {
             <div style={{ height: "100vh", width: "100%" }}>
               <Virtuoso
                 data={posts}
-                itemContent={(index, post) => (
-                  <SinglePostMinimal key={post.id} post={post} />
-                )}
+                itemContent={(index, post) => <SinglePostMinimal post={post} />}
                 components={{
                   Footer: () => {
                     if (isLoadingMorePosts) return <p>Loading more posts...</p>;
